@@ -1,22 +1,13 @@
-import { App, Construct, Stack, StackProps } from '@aws-cdk/core';
+import * as core from '@aws-cdk/core';
+import { PipelineStack } from './pipeline-stack';
 
-export class MyStack extends Stack {
-  constructor(scope: Construct, id: string, props: StackProps = {}) {
-    super(scope, id, props);
-
-    // define resources here...
-  }
-}
-
-// for development, use account/region from cdk cli
-const devEnv = {
-  account: process.env.CDK_DEFAULT_ACCOUNT,
-  region: process.env.CDK_DEFAULT_REGION,
+const deploymentAccount = {
+  account: '418648875085', // gemeentenijmegen-deployment
+  region: 'eu-west-1',
 };
 
-const app = new App();
+const app = new core.App();
 
-new MyStack(app, 'my-stack-dev', { env: devEnv });
-// new MyStack(app, 'my-stack-prod', { env: prodEnv });
+new PipelineStack(app, 'esb-pipeline', { env: deploymentAccount });
 
 app.synth();

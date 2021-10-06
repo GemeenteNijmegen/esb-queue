@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot 1`] = `
+Object {
+  "Resources": Object {
+    "repository9F1A3F0B": Object {
+      "Properties": Object {
+        "RepositoryName": "esb-repository",
+        "Tags": Array [
+          Object {
+            "Key": "cdkManaged",
+            "Value": "yes",
+          },
+          Object {
+            "Key": "project",
+            "Value": "esb",
+          },
+        ],
+      },
+      "Type": "AWS::CodeCommit::Repository",
+    },
+  },
+}
+`;
