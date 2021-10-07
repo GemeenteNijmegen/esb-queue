@@ -2,7 +2,9 @@ import * as sqs from '@aws-cdk/aws-sqs';
 import * as core from '@aws-cdk/core';
 // import * as kms from '@aws-cdk/aws-kms';
 
-export class GenericServicesStack extends core.Stack {
+export class esbGenericServicesStack extends core.Stack {
+  public readonly eformSqsArn: string; //used in IAM policy,
+
   constructor(scope: core.Construct, id: string, props: core.StackProps) {
     super(scope, id, props);
     core.Tags.of(this).add('cdkManaged', 'yes');
@@ -16,7 +18,7 @@ export class GenericServicesStack extends core.Stack {
       encryption: sqs.QueueEncryption.KMS,
     });
 
-    new sqs.Queue(this, 'esb-eform-submissions-queue', {
+    const eformSqs = new sqs.Queue(this, 'esb-eform-submissions-queue', {
       queueName: 'esb-eform-submissions-queue',
       encryption: sqs.QueueEncryption.KMS,
       deadLetterQueue: {
@@ -24,6 +26,8 @@ export class GenericServicesStack extends core.Stack {
         maxReceiveCount: 1,
       },
     });
+
+    this.eformSqsArn = eformSqs.queueArn;
 
     //TODO add parameters
   }

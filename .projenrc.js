@@ -12,6 +12,7 @@ const project = new AwsCdkTypeScriptApp({
     '@aws-cdk/aws-codecommit',
     '@aws-cdk/pipelines',
     '@aws-cdk/aws-sqs',
+    '@aws-cdk/aws-iam',
   ], /* Which AWS CDK modules (those that start with "@aws-cdk/") this app uses. */
   context: {
     '@aws-cdk/core:newStyleStackSynthesis': true,

@@ -1,7 +1,8 @@
 import * as codecommit from '@aws-cdk/aws-codecommit';
 import * as core from '@aws-cdk/core';
 import * as cdkpipelines from '@aws-cdk/pipelines';
-import { GenericServicesStack } from './generic-services-stack';
+import { esbGenericServicesStack } from './esb-generic-services-stack';
+import { esbIamStack } from './esb-iam-stack';
 import { statics } from './statics';
 
 class esbStage extends core.Stage {
@@ -9,11 +10,11 @@ class esbStage extends core.Stage {
   constructor(scope: core.Construct, id: string, props: core.StageProps) {
     super(scope, id, props);
 
-    new GenericServicesStack(this, 'esbGenericServices', {
-      env: {
-        account: statics.AWS_ACCOUNT_DEPLOYMENT,
-        region: 'eu-west-1',
-      },
+    const esbGenericsStack = new esbGenericServicesStack(this, 'esbGenericServices', {});
+
+    // iamStack depends on GenericServicesStack
+    new esbIamStack(this, 'esbIam', {
+      esbSqsArn: esbGenericsStack.eformSqsArn,
     });
   }
 }

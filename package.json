@@ -41,6 +41,7 @@
   "dependencies": {
     "@aws-cdk/assert": "1.121.0",
     "@aws-cdk/aws-codecommit": "1.121.0",
+    "@aws-cdk/aws-iam": "1.121.0",
     "@aws-cdk/aws-sqs": "1.121.0",
     "@aws-cdk/core": "1.121.0",
     "@aws-cdk/pipelines": "1.121.0"
