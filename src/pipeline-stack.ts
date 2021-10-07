@@ -1,26 +1,20 @@
 import * as codecommit from '@aws-cdk/aws-codecommit';
 import * as core from '@aws-cdk/core';
 import * as cdkpipelines from '@aws-cdk/pipelines';
+import { GenericServicesStack } from './generic-services-stack';
+import { statics } from './statics';
 
-export class EmptyStack extends core.Stack {}
-
-export class EmptyyStack extends core.Stack {}
-
-class emptyStage extends core.Stage {
+class esbStage extends core.Stage {
 
   constructor(scope: core.Construct, id: string, props: core.StageProps) {
     super(scope, id, props);
 
-    new EmptyStack(this, 'empty');
-  }
-}
-
-class emptyyStage extends core.Stage {
-
-  constructor(scope: core.Construct, id: string, props: core.StageProps) {
-    super(scope, id, props);
-
-    new EmptyyStack(this, 'emptyy');
+    new GenericServicesStack(this, 'esbGenericServices', {
+      env: {
+        account: statics.AWS_ACCOUNT_DEPLOYMENT,
+        region: 'eu-west-1',
+      },
+    });
   }
 }
 
@@ -51,10 +45,20 @@ export class PipelineStack extends core.Stack {
       }),
     });
 
-    pipeline.addStage( new emptyStage(this, 'empty', {}),
+    pipeline.addStage( new esbStage(this, 'esbAcceptance', {
+      env: {
+        account: statics.AWS_ACCOUNT_AUTH_ACCP,
+        region: 'eu-west-1',
+      },
+    }),
     );
 
-    pipeline.addStage( new emptyyStage(this, 'emptyy', {}),
+    pipeline.addStage( new esbStage(this, 'esbProduction', {
+      env: {
+        account: statics.AWS_ACCCOUNT_AUTH_PROD,
+        region: 'eu-west-1',
+      },
+    }),
     );
   }
 }

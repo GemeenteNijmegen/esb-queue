@@ -158,12 +158,13 @@ Object {
                   "ChangeSetName": "PipelineChange",
                   "RoleArn": Object {
                     "Fn::GetAtt": Array [
-                      "pipelinePipelineemptyPrepareRole03423606",
+                      "pipelinePipelineesbAcceptancePrepareRoleB0838581",
                       "Arn",
                     ],
                   },
-                  "StackName": "empty-empty",
-                  "TemplatePath": "Synth_Output::assembly-test-empty/empty-empty.template.json",
+                  "StackName": "esbAcceptance-esbGenericServices",
+                  "TemplateConfiguration": "Synth_Output::assembly-test-esbAcceptance/esbAcceptance-esbGenericServices.template.json.config.json",
+                  "TemplatePath": "Synth_Output::assembly-test-esbAcceptance/esbAcceptance-esbGenericServices.template.json",
                 },
                 "InputArtifacts": Array [
                   Object {
@@ -173,7 +174,7 @@ Object {
                 "Name": "Prepare",
                 "RoleArn": Object {
                   "Fn::GetAtt": Array [
-                    "pipelinePipelineemptyPrepareCodePipelineActionRole8549251B",
+                    "pipelinePipelineesbAcceptancePrepareCodePipelineActionRole9A08D507",
                     "Arn",
                   ],
                 },
@@ -189,19 +190,19 @@ Object {
                 "Configuration": Object {
                   "ActionMode": "CHANGE_SET_EXECUTE",
                   "ChangeSetName": "PipelineChange",
-                  "StackName": "empty-empty",
+                  "StackName": "esbAcceptance-esbGenericServices",
                 },
                 "Name": "Deploy",
                 "RoleArn": Object {
                   "Fn::GetAtt": Array [
-                    "pipelinePipelineemptyDeployCodePipelineActionRoleDB09B9CD",
+                    "pipelinePipelineesbAcceptanceDeployCodePipelineActionRoleFC7F0A6C",
                     "Arn",
                   ],
                 },
                 "RunOrder": 2,
               },
             ],
-            "Name": "empty",
+            "Name": "esbAcceptance",
           },
           Object {
             "Actions": Array [
@@ -218,12 +219,13 @@ Object {
                   "ChangeSetName": "PipelineChange",
                   "RoleArn": Object {
                     "Fn::GetAtt": Array [
-                      "pipelinePipelineemptyyPrepareRoleB4F79BE8",
+                      "pipelinePipelineesbProductionPrepareRole6E70487A",
                       "Arn",
                     ],
                   },
-                  "StackName": "emptyy-emptyy",
-                  "TemplatePath": "Synth_Output::assembly-test-emptyy/emptyy-emptyy.template.json",
+                  "StackName": "esbProduction-esbGenericServices",
+                  "TemplateConfiguration": "Synth_Output::assembly-test-esbProduction/esbProduction-esbGenericServices.template.json.config.json",
+                  "TemplatePath": "Synth_Output::assembly-test-esbProduction/esbProduction-esbGenericServices.template.json",
                 },
                 "InputArtifacts": Array [
                   Object {
@@ -233,7 +235,7 @@ Object {
                 "Name": "Prepare",
                 "RoleArn": Object {
                   "Fn::GetAtt": Array [
-                    "pipelinePipelineemptyyPrepareCodePipelineActionRole8D635FF7",
+                    "pipelinePipelineesbProductionPrepareCodePipelineActionRole75BFCE37",
                     "Arn",
                   ],
                 },
@@ -249,19 +251,19 @@ Object {
                 "Configuration": Object {
                   "ActionMode": "CHANGE_SET_EXECUTE",
                   "ChangeSetName": "PipelineChange",
-                  "StackName": "emptyy-emptyy",
+                  "StackName": "esbProduction-esbGenericServices",
                 },
                 "Name": "Deploy",
                 "RoleArn": Object {
                   "Fn::GetAtt": Array [
-                    "pipelinePipelineemptyyDeployCodePipelineActionRoleB0275011",
+                    "pipelinePipelineesbProductionDeployCodePipelineActionRole020E5E7E",
                     "Arn",
                   ],
                 },
                 "RunOrder": 2,
               },
             ],
-            "Name": "emptyy",
+            "Name": "esbProduction",
           },
         ],
         "Tags": Array [
@@ -348,11 +350,7 @@ Object {
                       Object {
                         "Ref": "AWS::Partition",
                       },
-                      ":iam::",
-                      Object {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":root",
+                      ":iam::418648875085:root",
                     ],
                   ],
                 },
@@ -477,7 +475,7 @@ Object {
               "Principal": Object {
                 "AWS": Object {
                   "Fn::GetAtt": Array [
-                    "pipelinePipelineemptyPrepareRole03423606",
+                    "pipelinePipelineesbAcceptancePrepareRoleB0838581",
                     "Arn",
                   ],
                 },
@@ -493,7 +491,7 @@ Object {
               "Principal": Object {
                 "AWS": Object {
                   "Fn::GetAtt": Array [
-                    "pipelinePipelineemptyPrepareCodePipelineActionRole8549251B",
+                    "pipelinePipelineesbAcceptancePrepareCodePipelineActionRole9A08D507",
                     "Arn",
                   ],
                 },
@@ -509,7 +507,7 @@ Object {
               "Principal": Object {
                 "AWS": Object {
                   "Fn::GetAtt": Array [
-                    "pipelinePipelineemptyyPrepareRoleB4F79BE8",
+                    "pipelinePipelineesbProductionPrepareRole6E70487A",
                     "Arn",
                   ],
                 },
@@ -525,7 +523,7 @@ Object {
               "Principal": Object {
                 "AWS": Object {
                   "Fn::GetAtt": Array [
-                    "pipelinePipelineemptyyPrepareCodePipelineActionRole8D635FF7",
+                    "pipelinePipelineesbProductionPrepareCodePipelineActionRole75BFCE37",
                     "Arn",
                   ],
                 },
@@ -666,15 +664,7 @@ Object {
                       Object {
                         "Ref": "AWS::Partition",
                       },
-                      ":logs:",
-                      Object {
-                        "Ref": "AWS::Region",
-                      },
-                      ":",
-                      Object {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":log-group:/aws/codebuild/",
+                      ":logs:eu-west-1:418648875085:log-group:/aws/codebuild/",
                       Object {
                         "Ref": "pipelinePipelineBuildSynthCdkBuildProject4237770A",
                       },
@@ -689,15 +679,7 @@ Object {
                       Object {
                         "Ref": "AWS::Partition",
                       },
-                      ":logs:",
-                      Object {
-                        "Ref": "AWS::Region",
-                      },
-                      ":",
-                      Object {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":log-group:/aws/codebuild/",
+                      ":logs:eu-west-1:418648875085:log-group:/aws/codebuild/",
                       Object {
                         "Ref": "pipelinePipelineBuildSynthCdkBuildProject4237770A",
                       },
@@ -724,15 +706,7 @@ Object {
                     Object {
                       "Ref": "AWS::Partition",
                     },
-                    ":codebuild:",
-                    Object {
-                      "Ref": "AWS::Region",
-                    },
-                    ":",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":report-group/",
+                    ":codebuild:eu-west-1:418648875085:report-group/",
                     Object {
                       "Ref": "pipelinePipelineBuildSynthCdkBuildProject4237770A",
                     },
@@ -833,11 +807,7 @@ Object {
                       Object {
                         "Ref": "AWS::Partition",
                       },
-                      ":iam::",
-                      Object {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":root",
+                      ":iam::418648875085:root",
                     ],
                   ],
                 },
@@ -931,15 +901,7 @@ Object {
                     Object {
                       "Ref": "AWS::Partition",
                     },
-                    ":codepipeline:",
-                    Object {
-                      "Ref": "AWS::Region",
-                    },
-                    ":",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":",
+                    ":codepipeline:eu-west-1:418648875085:",
                     Object {
                       "Ref": "pipelinePipeline4163A4B1",
                     },
@@ -1074,7 +1036,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "pipelinePipelineemptyPrepareCodePipelineActionRole8549251B",
+                  "pipelinePipelineesbAcceptancePrepareCodePipelineActionRole9A08D507",
                   "Arn",
                 ],
               },
@@ -1084,7 +1046,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "pipelinePipelineemptyDeployCodePipelineActionRoleDB09B9CD",
+                  "pipelinePipelineesbAcceptanceDeployCodePipelineActionRoleFC7F0A6C",
                   "Arn",
                 ],
               },
@@ -1094,7 +1056,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "pipelinePipelineemptyyPrepareCodePipelineActionRole8D635FF7",
+                  "pipelinePipelineesbProductionPrepareCodePipelineActionRole75BFCE37",
                   "Arn",
                 ],
               },
@@ -1104,7 +1066,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "pipelinePipelineemptyyDeployCodePipelineActionRoleB0275011",
+                  "pipelinePipelineesbProductionDeployCodePipelineActionRole020E5E7E",
                   "Arn",
                 ],
               },
@@ -1137,11 +1099,7 @@ Object {
                       Object {
                         "Ref": "AWS::Partition",
                       },
-                      ":iam::",
-                      Object {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":root",
+                      ":iam::418648875085:root",
                     ],
                   ],
                 },
@@ -1260,11 +1218,7 @@ Object {
                       Object {
                         "Ref": "AWS::Partition",
                       },
-                      ":iam::",
-                      Object {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":root",
+                      ":iam::418648875085:root",
                     ],
                   ],
                 },
@@ -1316,49 +1270,7 @@ Object {
       },
       "Type": "AWS::IAM::Policy",
     },
-    "pipelinePipelineemptyDeployCodePipelineActionRoleDB09B9CD": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "AWS": Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      "arn:",
-                      Object {
-                        "Ref": "AWS::Partition",
-                      },
-                      ":iam::",
-                      Object {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":root",
-                    ],
-                  ],
-                },
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "Tags": Array [
-          Object {
-            "Key": "cdkManaged",
-            "Value": "yes",
-          },
-          Object {
-            "Key": "project",
-            "Value": "esb",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "pipelinePipelineemptyDeployCodePipelineActionRoleDefaultPolicyBA47A4AB": Object {
+    "pipelinePipelineesbAcceptanceDeployCodePipelineActionRoleDefaultPolicy448B94CA": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
@@ -1382,15 +1294,7 @@ Object {
                     Object {
                       "Ref": "AWS::Partition",
                     },
-                    ":cloudformation:",
-                    Object {
-                      "Ref": "AWS::Region",
-                    },
-                    ":",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":stack/empty-empty/*",
+                    ":cloudformation:eu-west-1:418648875085:stack/esbAcceptance-esbGenericServices/*",
                   ],
                 ],
               },
@@ -1398,16 +1302,16 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "pipelinePipelineemptyDeployCodePipelineActionRoleDefaultPolicyBA47A4AB",
+        "PolicyName": "pipelinePipelineesbAcceptanceDeployCodePipelineActionRoleDefaultPolicy448B94CA",
         "Roles": Array [
           Object {
-            "Ref": "pipelinePipelineemptyDeployCodePipelineActionRoleDB09B9CD",
+            "Ref": "pipelinePipelineesbAcceptanceDeployCodePipelineActionRoleFC7F0A6C",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "pipelinePipelineemptyPrepareCodePipelineActionRole8549251B": Object {
+    "pipelinePipelineesbAcceptanceDeployCodePipelineActionRoleFC7F0A6C": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -1423,11 +1327,7 @@ Object {
                       Object {
                         "Ref": "AWS::Partition",
                       },
-                      ":iam::",
-                      Object {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":root",
+                      ":iam::418648875085:root",
                     ],
                   ],
                 },
@@ -1449,7 +1349,45 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "pipelinePipelineemptyPrepareCodePipelineActionRoleDefaultPolicyDEA31E8E": Object {
+    "pipelinePipelineesbAcceptancePrepareCodePipelineActionRole9A08D507": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::418648875085:root",
+                    ],
+                  ],
+                },
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Tags": Array [
+          Object {
+            "Key": "cdkManaged",
+            "Value": "yes",
+          },
+          Object {
+            "Key": "project",
+            "Value": "esb",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "pipelinePipelineesbAcceptancePrepareCodePipelineActionRoleDefaultPolicy442C75AF": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
@@ -1458,7 +1396,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "pipelinePipelineemptyPrepareRole03423606",
+                  "pipelinePipelineesbAcceptancePrepareRoleB0838581",
                   "Arn",
                 ],
               },
@@ -1527,15 +1465,7 @@ Object {
                     Object {
                       "Ref": "AWS::Partition",
                     },
-                    ":cloudformation:",
-                    Object {
-                      "Ref": "AWS::Region",
-                    },
-                    ":",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":stack/empty-empty/*",
+                    ":cloudformation:eu-west-1:418648875085:stack/esbAcceptance-esbGenericServices/*",
                   ],
                 ],
               },
@@ -1543,16 +1473,16 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "pipelinePipelineemptyPrepareCodePipelineActionRoleDefaultPolicyDEA31E8E",
+        "PolicyName": "pipelinePipelineesbAcceptancePrepareCodePipelineActionRoleDefaultPolicy442C75AF",
         "Roles": Array [
           Object {
-            "Ref": "pipelinePipelineemptyPrepareCodePipelineActionRole8549251B",
+            "Ref": "pipelinePipelineesbAcceptancePrepareCodePipelineActionRole9A08D507",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "pipelinePipelineemptyPrepareRole03423606": Object {
+    "pipelinePipelineesbAcceptancePrepareRoleB0838581": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -1579,7 +1509,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "pipelinePipelineemptyPrepareRoleDefaultPolicy78FFE612": Object {
+    "pipelinePipelineesbAcceptancePrepareRoleDefaultPolicyE87D4A3E": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
@@ -1634,16 +1564,16 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "pipelinePipelineemptyPrepareRoleDefaultPolicy78FFE612",
+        "PolicyName": "pipelinePipelineesbAcceptancePrepareRoleDefaultPolicyE87D4A3E",
         "Roles": Array [
           Object {
-            "Ref": "pipelinePipelineemptyPrepareRole03423606",
+            "Ref": "pipelinePipelineesbAcceptancePrepareRoleB0838581",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "pipelinePipelineemptyyDeployCodePipelineActionRoleB0275011": Object {
+    "pipelinePipelineesbProductionDeployCodePipelineActionRole020E5E7E": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -1659,11 +1589,7 @@ Object {
                       Object {
                         "Ref": "AWS::Partition",
                       },
-                      ":iam::",
-                      Object {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":root",
+                      ":iam::418648875085:root",
                     ],
                   ],
                 },
@@ -1685,7 +1611,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "pipelinePipelineemptyyDeployCodePipelineActionRoleDefaultPolicyD710D698": Object {
+    "pipelinePipelineesbProductionDeployCodePipelineActionRoleDefaultPolicy7C41117A": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
@@ -1709,15 +1635,7 @@ Object {
                     Object {
                       "Ref": "AWS::Partition",
                     },
-                    ":cloudformation:",
-                    Object {
-                      "Ref": "AWS::Region",
-                    },
-                    ":",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":stack/emptyy-emptyy/*",
+                    ":cloudformation:eu-west-1:418648875085:stack/esbProduction-esbGenericServices/*",
                   ],
                 ],
               },
@@ -1725,16 +1643,16 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "pipelinePipelineemptyyDeployCodePipelineActionRoleDefaultPolicyD710D698",
+        "PolicyName": "pipelinePipelineesbProductionDeployCodePipelineActionRoleDefaultPolicy7C41117A",
         "Roles": Array [
           Object {
-            "Ref": "pipelinePipelineemptyyDeployCodePipelineActionRoleB0275011",
+            "Ref": "pipelinePipelineesbProductionDeployCodePipelineActionRole020E5E7E",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "pipelinePipelineemptyyPrepareCodePipelineActionRole8D635FF7": Object {
+    "pipelinePipelineesbProductionPrepareCodePipelineActionRole75BFCE37": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -1750,11 +1668,7 @@ Object {
                       Object {
                         "Ref": "AWS::Partition",
                       },
-                      ":iam::",
-                      Object {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":root",
+                      ":iam::418648875085:root",
                     ],
                   ],
                 },
@@ -1776,7 +1690,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "pipelinePipelineemptyyPrepareCodePipelineActionRoleDefaultPolicy2E803CB2": Object {
+    "pipelinePipelineesbProductionPrepareCodePipelineActionRoleDefaultPolicy139AB3A8": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
@@ -1785,7 +1699,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "pipelinePipelineemptyyPrepareRoleB4F79BE8",
+                  "pipelinePipelineesbProductionPrepareRole6E70487A",
                   "Arn",
                 ],
               },
@@ -1854,15 +1768,7 @@ Object {
                     Object {
                       "Ref": "AWS::Partition",
                     },
-                    ":cloudformation:",
-                    Object {
-                      "Ref": "AWS::Region",
-                    },
-                    ":",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":stack/emptyy-emptyy/*",
+                    ":cloudformation:eu-west-1:418648875085:stack/esbProduction-esbGenericServices/*",
                   ],
                 ],
               },
@@ -1870,16 +1776,16 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "pipelinePipelineemptyyPrepareCodePipelineActionRoleDefaultPolicy2E803CB2",
+        "PolicyName": "pipelinePipelineesbProductionPrepareCodePipelineActionRoleDefaultPolicy139AB3A8",
         "Roles": Array [
           Object {
-            "Ref": "pipelinePipelineemptyyPrepareCodePipelineActionRole8D635FF7",
+            "Ref": "pipelinePipelineesbProductionPrepareCodePipelineActionRole75BFCE37",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "pipelinePipelineemptyyPrepareRoleB4F79BE8": Object {
+    "pipelinePipelineesbProductionPrepareRole6E70487A": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -1906,7 +1812,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "pipelinePipelineemptyyPrepareRoleDefaultPolicyE218503E": Object {
+    "pipelinePipelineesbProductionPrepareRoleDefaultPolicy636B37CA": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
@@ -1961,10 +1867,10 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "pipelinePipelineemptyyPrepareRoleDefaultPolicyE218503E",
+        "PolicyName": "pipelinePipelineesbProductionPrepareRoleDefaultPolicy636B37CA",
         "Roles": Array [
           Object {
-            "Ref": "pipelinePipelineemptyyPrepareRoleB4F79BE8",
+            "Ref": "pipelinePipelineesbProductionPrepareRole6E70487A",
           },
         ],
       },
@@ -2073,15 +1979,7 @@ Object {
                       Object {
                         "Ref": "AWS::Partition",
                       },
-                      ":logs:",
-                      Object {
-                        "Ref": "AWS::Region",
-                      },
-                      ":",
-                      Object {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":log-group:/aws/codebuild/",
+                      ":logs:eu-west-1:418648875085:log-group:/aws/codebuild/",
                       Object {
                         "Ref": "pipelineUpdatePipelineSelfMutation14A96D2F",
                       },
@@ -2096,15 +1994,7 @@ Object {
                       Object {
                         "Ref": "AWS::Partition",
                       },
-                      ":logs:",
-                      Object {
-                        "Ref": "AWS::Region",
-                      },
-                      ":",
-                      Object {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":log-group:/aws/codebuild/",
+                      ":logs:eu-west-1:418648875085:log-group:/aws/codebuild/",
                       Object {
                         "Ref": "pipelineUpdatePipelineSelfMutation14A96D2F",
                       },
@@ -2131,15 +2021,7 @@ Object {
                     Object {
                       "Ref": "AWS::Partition",
                     },
-                    ":codebuild:",
-                    Object {
-                      "Ref": "AWS::Region",
-                    },
-                    ":",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":report-group/",
+                    ":codebuild:eu-west-1:418648875085:report-group/",
                     Object {
                       "Ref": "pipelineUpdatePipelineSelfMutation14A96D2F",
                     },
@@ -2160,18 +2042,7 @@ Object {
                 },
               },
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:*:iam::",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":role/*",
-                  ],
-                ],
-              },
+              "Resource": "arn:*:iam::418648875085:role/*",
             },
             Object {
               "Action": "cloudformation:DescribeStacks",
@@ -2307,15 +2178,7 @@ Object {
                   Object {
                     "Ref": "AWS::Partition",
                   },
-                  ":codepipeline:",
-                  Object {
-                    "Ref": "AWS::Region",
-                  },
-                  ":",
-                  Object {
-                    "Ref": "AWS::AccountId",
-                  },
-                  ":",
+                  ":codepipeline:eu-west-1:418648875085:",
                   Object {
                     "Ref": "pipelinePipeline4163A4B1",
                   },
