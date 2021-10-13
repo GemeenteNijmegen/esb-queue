@@ -1,6 +1,7 @@
+import * as iam from '@aws-cdk/aws-iam';
+import * as kms from '@aws-cdk/aws-kms';
 import * as sqs from '@aws-cdk/aws-sqs';
 import * as core from '@aws-cdk/core';
-// import * as kms from '@aws-cdk/aws-kms';
 
 export class esbGenericServicesStack extends core.Stack {
   public readonly eformSqsArn: string; //used in IAM policy,
@@ -10,8 +11,27 @@ export class esbGenericServicesStack extends core.Stack {
     core.Tags.of(this).add('cdkManaged', 'yes');
     core.Tags.of(this).add('Project', 'esb');
 
-    //TODO do we want this kms key? (to use in sqs as masterencryptionkey)
-    //const kmsKey = kms.Key.fromKeyArn(this, 'eform-kms-key', ssm.StringParameter.valueForStringParameter(this, '/cdk/eform/eform/KMSKeysArn'));
+    // Custom KMS neccessary: The required permissions aren't included in the default key policy of the AWS managed KMS key for Amazon SQS, and you can't modify this policy.
+    const kmsKey = new kms.Key(this, 'esb-eform-sqs-key', {
+      alias: 'nijmegen/esb/sqs',
+      enableKeyRotation: true,
+      description: 'Custom KMS key for publishing messages from eform-submissions sns topic to the esb sqs queue.',
+    });
+
+    //TODO scope this policy
+    kmsKey.addToResourcePolicy(new iam.PolicyStatement({
+      sid: 'Allow esb SQS Queue to receive messages from the eform-submissions SNS topic.',
+      effect: iam.Effect.ALLOW,
+      principals: [new iam.AnyPrincipal],
+      actions: [
+        'sns:*',
+        'sqs:*',
+        'kms:*',
+      ],
+      resources: ['*'],
+    }));
+
+    //TODO add kmskey to paramater store
 
     const eformSqsDlq = new sqs.Queue(this, 'esb-eform-submissions-dlq', {
       queueName: 'esb-eform-submissions-dlq',
@@ -21,6 +41,7 @@ export class esbGenericServicesStack extends core.Stack {
     const eformSqs = new sqs.Queue(this, 'esb-eform-submissions-queue', {
       queueName: 'esb-eform-submissions-queue',
       encryption: sqs.QueueEncryption.KMS,
+      encryptionMasterKey: kmsKey,
       deadLetterQueue: {
         queue: eformSqsDlq,
         maxReceiveCount: 1,

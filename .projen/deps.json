@@ -90,7 +90,17 @@
       "type": "runtime"
     },
     {
+      "name": "@aws-cdk/aws-kms",
+      "version": "1.121.0",
+      "type": "runtime"
+    },
+    {
       "name": "@aws-cdk/aws-sqs",
+      "version": "1.121.0",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-cdk/aws-ssm",
       "version": "1.121.0",
       "type": "runtime"
     },
