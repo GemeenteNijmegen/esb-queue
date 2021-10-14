@@ -13,8 +13,8 @@ export class esbIamStack extends core.Stack {
     core.Tags.of(this).add('Project', 'esb');
 
     /**
-         * IAM Construct for mule
-         */
+     * IAM Construct for mule
+     */
     new esbIAMMule(this, 'esbMule', {
       iamAccountPrincipal: statics.AWS_ACCOUNT_IAM,
       esbSqsArn: props.esbSqsArn,

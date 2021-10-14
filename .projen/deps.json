@@ -80,6 +80,11 @@
       "type": "runtime"
     },
     {
+      "name": "@aws-cdk/aws-cloudwatch-actions",
+      "version": "1.121.0",
+      "type": "runtime"
+    },
+    {
       "name": "@aws-cdk/aws-codecommit",
       "version": "1.121.0",
       "type": "runtime"
@@ -91,6 +96,11 @@
     },
     {
       "name": "@aws-cdk/aws-kms",
+      "version": "1.121.0",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-cdk/aws-sns",
       "version": "1.121.0",
       "type": "runtime"
     },

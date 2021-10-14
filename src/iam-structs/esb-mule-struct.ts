@@ -11,8 +11,8 @@ export class esbIAMMule extends core.Construct {
     super(scope, id);
 
     /**
-         * Role: wordt gebruikt door system accounts (Mule), dus geen MFA eisen
-         */
+     * Role: wordt gebruikt door system accounts (Mule), dus geen MFA eisen
+     */
     const esbSqsMuleRole = new iam.Role(this, 'esb-sqs-mule-role', {
       roleName: 'esb-sqs-mule',
       assumedBy: new iam.AccountPrincipal(props.iamAccountPrincipal),

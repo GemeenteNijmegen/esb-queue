@@ -132,6 +132,19 @@
     "@aws-cdk/cx-api" "1.121.0"
     constructs "^3.3.69"
 
+"@aws-cdk/aws-cloudwatch-actions@1.121.0":
+  version "1.121.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-cloudwatch-actions/-/aws-cloudwatch-actions-1.121.0.tgz#1f24ddbc39b22a4989f74ec3fcbb7bc035aebaa1"
+  integrity sha512-FHx2Y0D0BkCknW1QLjaBMEwgSO4QTP2OeZijnQ8tYl3WQ083nK3wlfAH27x8f+oQdtPRkc7Zpzb15VxKdvk57A==
+  dependencies:
+    "@aws-cdk/aws-applicationautoscaling" "1.121.0"
+    "@aws-cdk/aws-autoscaling" "1.121.0"
+    "@aws-cdk/aws-cloudwatch" "1.121.0"
+    "@aws-cdk/aws-iam" "1.121.0"
+    "@aws-cdk/aws-sns" "1.121.0"
+    "@aws-cdk/core" "1.121.0"
+    constructs "^3.3.69"
+
 "@aws-cdk/aws-cloudwatch@1.121.0":
   version "1.121.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-cloudwatch/-/aws-cloudwatch-1.121.0.tgz#771af09fc096f6ae1b9d978a73fa51aa22401261"

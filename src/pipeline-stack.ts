@@ -10,9 +10,15 @@ class esbStage extends core.Stage {
   constructor(scope: core.Construct, id: string, props: core.StageProps) {
     super(scope, id, props);
 
+    /**
+     * Stack: esb generic services
+     */
     const esbGenericsStack = new esbGenericServicesStack(this, 'esbGenericServices', {});
 
-    // iamStack depends on GenericServicesStack
+    /**
+     * Stack: esb iam
+     * Depends on GenericServicesStack
+     */
     new esbIamStack(this, 'esbIam', {
       esbSqsArn: esbGenericsStack.eformSqsArn,
     });
@@ -33,6 +39,9 @@ export class PipelineStack extends core.Stack {
       repositoryName: 'esb-repository',
     });
 
+    /**
+     * Main pipeline
+     */
     const pipeline = new cdkpipelines.CodePipeline(this, 'pipeline', {
       pipelineName: 'esb-pipeline',
       crossAccountKeys: true,
