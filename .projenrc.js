@@ -17,6 +17,7 @@ const project = new AwsCdkTypeScriptApp({
     '@aws-cdk/aws-kms',
     '@aws-cdk/aws-cloudwatch-actions',
     '@aws-cdk/aws-sns',
+    '@aws-cdk/aws-cloudwatch',
   ], /* Which AWS CDK modules (those that start with "@aws-cdk/") this app uses. */
   context: {
     '@aws-cdk/core:newStyleStackSynthesis': true,

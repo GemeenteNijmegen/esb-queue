@@ -1,11 +1,11 @@
-import * as iam from '@aws-cdk/aws-iam';
-import * as kms from '@aws-cdk/aws-kms';
-import * as sqs from '@aws-cdk/aws-sqs';
-import * as core from '@aws-cdk/core';
 import * as cloudwatch from '@aws-cdk/aws-cloudwatch';
 import * as cloudwatch_actions from '@aws-cdk/aws-cloudwatch-actions';
-import * as ssm from '@aws-cdk/aws-ssm';
+import * as iam from '@aws-cdk/aws-iam';
+import * as kms from '@aws-cdk/aws-kms';
 import * as sns from '@aws-cdk/aws-sns';
+import * as sqs from '@aws-cdk/aws-sqs';
+import * as ssm from '@aws-cdk/aws-ssm';
+import * as core from '@aws-cdk/core';
 
 export class esbGenericServicesStack extends core.Stack {
   public readonly eformSqsArn: string; //used in IAM policy,
@@ -14,9 +14,9 @@ export class esbGenericServicesStack extends core.Stack {
     super(scope, id, props);
     core.Tags.of(this).add('cdkManaged', 'yes');
     core.Tags.of(this).add('Project', 'esb');
-    
+
     /**
-     * Custom KMS key for esb eform sqs connection. 
+     * Custom KMS key for esb eform sqs connection.
      * Neccessary because the required permissions aren't included in the default key policy of the AWS managed KMS key for Amazon SQS, and you can't modify this policy.
      */
     const kmsKey = new kms.Key(this, 'esb-eform-sqs-key', {
@@ -62,7 +62,7 @@ export class esbGenericServicesStack extends core.Stack {
     /**
      * Sns Topic from eform project: eform submissions delivery status sns topic.
      */
-    const eformSubmissionsSnsDeliveryStatusTopic = sns.Topic.fromTopicArn(this, 'eform-submissions-sns-deliverystatus-topic', ssm.StringParameter.valueForStringParameter(this,'/cdk/eform/SnsSubmissionsDeliveryStatusArn'));
+    const eformSubmissionsSnsDeliveryStatusTopic = sns.Topic.fromTopicArn(this, 'eform-submissions-sns-deliverystatus-topic', ssm.StringParameter.valueForStringParameter(this, '/cdk/eform/SnsSubmissionsDeliveryStatusArn'));
 
     /**
      * Cloudwatch Alarm that triggers when message from eform submissions is delivered to the esb dlq.
