@@ -69,7 +69,7 @@ export class esbGenericServicesStack extends core.Stack {
      */
     const cloudWatchAlarmEsbSqsDlq = new cloudwatch.Alarm(this, 'cloudwatch-alarm-esb-sqs-dlq', {
       metric: eformSqsDlq.metricNumberOfMessagesReceived({
-        period: core.Duration.seconds(30), //TODO change? set to 30 sec because polling takes this amount of time.
+        period: core.Duration.minutes(1), //TODO change to 30 sec because polling takes this amount of time?
       }),
       threshold: 0,
       evaluationPeriods: 1,
