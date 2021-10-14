@@ -18,20 +18,17 @@ export class esbGenericServicesStack extends core.Stack {
       description: 'Custom KMS key for publishing messages from eform-submissions sns topic to the esb sqs queue.',
     });
 
-    //TODO scope this policy
     kmsKey.addToResourcePolicy(new iam.PolicyStatement({
       sid: 'Allow esb SQS Queue to receive messages from the eform-submissions SNS topic.',
       effect: iam.Effect.ALLOW,
       principals: [new iam.AnyPrincipal],
       actions: [
-        'sns:*',
-        'sqs:*',
-        'kms:*',
+        'kms:Encrypt',
+        'kms:Decrypt',
+        'kms:GenerateDataKey',
       ],
       resources: ['*'],
     }));
-
-    //TODO add kmskey to paramater store
 
     const eformSqsDlq = new sqs.Queue(this, 'esb-eform-submissions-dlq', {
       queueName: 'esb-eform-submissions-dlq',
