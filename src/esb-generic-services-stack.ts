@@ -38,6 +38,11 @@ export class esbGenericServicesStack extends core.Stack {
     }));
 
     /**
+     * Sns Topic from eform project: eform submissions sns topic.
+     */
+    const eformSubmissionsSnsTopic = sns.Topic.fromTopicArn(this, 'eform-submissions-sns-topic', ssm.StringParameter.valueForStringParameter(this, '/cdk/eform/SNSsubmissionsArn'));
+
+    /**
      * Sqs Dead-Letter Queue: receives 'failed' messages to the esb eform submissions queue.
      */
     const eformSqsDlq = new sqs.Queue(this, 'esb-eform-submissions-dlq', {
@@ -58,6 +63,33 @@ export class esbGenericServicesStack extends core.Stack {
       },
     });
     this.eformSqsArn = eformSqs.queueArn;
+
+    /**
+     * Policy document: custom access policy for eform sqs.
+     */
+    const eformSqsPolicyDocument = new iam.PolicyDocument({
+      statements: [
+        new iam.PolicyStatement({
+          actions: ['sqs:sendMessage'],
+          effect: iam.Effect.ALLOW,
+          conditions: {
+            ArnEquals: {
+              'aws:SourceArn': eformSubmissionsSnsTopic.topicArn,
+            },
+          },
+          principals: [
+            new iam.ServicePrincipal('sns.amazonaws.com'),
+          ],
+          resources: [
+            eformSqs.queueArn,
+          ],
+        }),
+      ],
+    });
+    new sqs.CfnQueuePolicy(this, 'eformSqsPolicyDocument', {
+      queues: [eformSqs.queueUrl],
+      policyDocument: eformSqsPolicyDocument.toJSON(),
+    });
 
     /**
      * Sns Topic from eform project: eform submissions delivery status sns topic.
