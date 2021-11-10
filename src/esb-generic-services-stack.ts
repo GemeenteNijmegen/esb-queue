@@ -87,7 +87,7 @@ export class esbGenericServicesStack extends core.Stack {
       ],
     });
     new sqs.CfnQueuePolicy(this, 'eformSqsPolicyDocument', {
-      queues: [eformSqs.queueUrl],
+      queues: [eformSqs.queueUrl, eformSqsDlq.queueUrl],
       policyDocument: eformSqsPolicyDocument.toJSON(),
     });
 
