@@ -94,7 +94,7 @@ export class esbGenericServicesStack extends core.Stack {
     /**
      * Sns Topic from eform project: eform submissions delivery status sns topic.
      */
-    const eformSubmissionsSnsDeliveryStatusTopic = sns.Topic.fromTopicArn(this, 'eform-submissions-sns-deliverystatus-topic', ssm.StringParameter.valueForStringParameter(this, '/cdk/eform/SnsSubmissionsDeliveryStatusArn'));
+    const eformSubmissionsSnsGenericAlarmTopic = sns.Topic.fromTopicArn(this, 'eform-submissions-sns-generic-alarm-topic', ssm.StringParameter.valueForStringParameter(this, '/cdk/eform/sns/alarmTopicArn'));
 
     /**
      * Cloudwatch Alarm that triggers when message from eform submissions is delivered to the esb dlq.
@@ -109,8 +109,8 @@ export class esbGenericServicesStack extends core.Stack {
       alarmName: 'esb-eform-sqs-dlq-alarm',
       alarmDescription: 'CloudWatch alarm that triggers when number of messages returned by calls to the ReceiveMessage action exceeds 0 on esb sqs dlq.',
     });
-    // Send alarm action to eform submissions delivery status sns topic, sends a message to the Teams channel.
-    cloudWatchAlarmEsbSqsDlq.addAlarmAction(new cloudwatch_actions.SnsAction(eformSubmissionsSnsDeliveryStatusTopic));
+    // Send alarm action to eform submissions generic alarm sns topic, sends a message to the Teams channel.
+    cloudWatchAlarmEsbSqsDlq.addAlarmAction(new cloudwatch_actions.SnsAction(eformSubmissionsSnsGenericAlarmTopic));
 
     //TODO add parameters
   }
