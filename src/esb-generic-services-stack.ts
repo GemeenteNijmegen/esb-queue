@@ -20,7 +20,7 @@ export class esbGenericServicesStack extends core.Stack {
      * Neccessary because the required permissions aren't included in the default key policy of the AWS managed KMS key for Amazon SQS, and you can't modify this policy.
      */
     const kmsKey = new kms.Key(this, 'esb-eform-sqs-key', {
-      alias: 'nijmegen/esb/sqs',
+      alias: 'esb/eform/sqs',
       enableKeyRotation: true,
       description: 'Custom KMS key for publishing messages from eform-submissions sns topic to the esb sqs queue.',
     });
