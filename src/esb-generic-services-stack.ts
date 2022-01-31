@@ -48,6 +48,7 @@ export class esbGenericServicesStack extends core.Stack {
     const eformSqsDlq = new sqs.Queue(this, 'esb-eform-submissions-dlq', {
       queueName: 'esb-eform-submissions-dlq',
       encryption: sqs.QueueEncryption.KMS,
+      encryptionMasterKey: kmsKey,
     });
 
     /**
