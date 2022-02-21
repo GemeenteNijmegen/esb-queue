@@ -28,7 +28,8 @@ export class esbIAMMule extends core.Construct {
       effect: iam.Effect.ALLOW,
       actions: ['sqs:Get*',
         'sqs:List*',
-        'sqs:ReceiveMessage'],
+        'sqs:ReceiveMessage',
+        'sqs:DeleteMessage'],
       resources: [props.esbSqsArn],
     });
 
