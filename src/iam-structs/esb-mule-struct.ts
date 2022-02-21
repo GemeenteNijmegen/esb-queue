@@ -26,7 +26,9 @@ export class esbIAMMule extends core.Construct {
 
     const sqs_statement = new iam.PolicyStatement({
       effect: iam.Effect.ALLOW,
-      actions: ['sqs:*'], //TODO scope actions
+      actions: ['sqs:Get*',
+        'sqs:List*',
+        'sqs:ReceiveMessage'],
       resources: [props.esbSqsArn],
     });
 
