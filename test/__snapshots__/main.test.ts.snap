@@ -39,33 +39,23 @@ Object {
                 "ActionTypeId": Object {
                   "Category": "Source",
                   "Owner": "AWS",
-                  "Provider": "CodeCommit",
+                  "Provider": "CodeStarSourceConnection",
                   "Version": "1",
                 },
                 "Configuration": Object {
                   "BranchName": "main",
-                  "PollForSourceChanges": false,
-                  "RepositoryName": Object {
-                    "Fn::GetAtt": Array [
-                      "repository9F1A3F0B",
-                      "Name",
-                    ],
-                  },
+                  "ConnectionArn": "arn:aws:codestar-connections:eu-west-1:418648875085:connection/4f647929-c982-4f30-94f4-24ff7dbf9766",
+                  "FullRepositoryId": "GemeenteNijmegen/esb-queue",
                 },
-                "Name": Object {
-                  "Fn::GetAtt": Array [
-                    "repository9F1A3F0B",
-                    "Name",
-                  ],
-                },
+                "Name": "GemeenteNijmegen_esb-queue",
                 "OutputArtifacts": Array [
                   Object {
-                    "Name": "c8581f909911d3cf65bbb7de872c60d934c8617998_Source",
+                    "Name": "GemeenteNijmegen_esb_queue_Source",
                   },
                 ],
                 "RoleArn": Object {
                   "Fn::GetAtt": Array [
-                    "pipelinePipelineSourceCodeCommitCodePipelineActionRole6B8C4BD2",
+                    "pipelinePipelineSourceGemeenteNijmegenesbqueueCodePipelineActionRoleEA872778",
                     "Arn",
                   ],
                 },
@@ -84,14 +74,14 @@ Object {
                   "Version": "1",
                 },
                 "Configuration": Object {
-                  "EnvironmentVariables": "[{\\"name\\":\\"_PROJECT_CONFIG_HASH\\",\\"type\\":\\"PLAINTEXT\\",\\"value\\":\\"7eafe4f3fbf3743ef757dbf643a09d8ec87ce595976062b78f51922ea699a615\\"}]",
+                  "EnvironmentVariables": "[{\\"name\\":\\"_PROJECT_CONFIG_HASH\\",\\"type\\":\\"PLAINTEXT\\",\\"value\\":\\"d51caabd0e26116c058f595b6ea1a2c641ef665e73b32f4b4aa960b36bf0ac73\\"}]",
                   "ProjectName": Object {
                     "Ref": "pipelinePipelineBuildSynthCdkBuildProject4237770A",
                   },
                 },
                 "InputArtifacts": Array [
                   Object {
-                    "Name": "c8581f909911d3cf65bbb7de872c60d934c8617998_Source",
+                    "Name": "GemeenteNijmegen_esb_queue_Source",
                   },
                 ],
                 "Name": "Synth",
@@ -500,7 +490,7 @@ Object {
               "Principal": Object {
                 "AWS": Object {
                   "Fn::GetAtt": Array [
-                    "pipelinePipelineSourceCodeCommitCodePipelineActionRole6B8C4BD2",
+                    "pipelinePipelineSourceGemeenteNijmegenesbqueueCodePipelineActionRoleEA872778",
                     "Arn",
                   ],
                 },
@@ -768,8 +758,7 @@ Object {
     \\"build\\": {
       \\"commands\\": [
         \\"yarn install --frozen-lockfile\\",
-        \\"npx projen build\\",
-        \\"npx projen synth\\"
+        \\"yarn build\\"
       ]
     }
   },
@@ -1035,68 +1024,6 @@ Object {
       },
       "Type": "AWS::IAM::Policy",
     },
-    "pipelinePipelineEventsRole49C5F40E": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": "events.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "Tags": Array [
-          Object {
-            "Key": "cdkManaged",
-            "Value": "yes",
-          },
-          Object {
-            "Key": "project",
-            "Value": "esb",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "pipelinePipelineEventsRoleDefaultPolicy442F1CD4": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "codepipeline:StartPipelineExecution",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:",
-                    Object {
-                      "Ref": "AWS::Partition",
-                    },
-                    ":codepipeline:eu-west-1:418648875085:",
-                    Object {
-                      "Ref": "pipelinePipeline4163A4B1",
-                    },
-                  ],
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "pipelinePipelineEventsRoleDefaultPolicy442F1CD4",
-        "Roles": Array [
-          Object {
-            "Ref": "pipelinePipelineEventsRole49C5F40E",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
     "pipelinePipelineRole7016E5DF": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
@@ -1182,7 +1109,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "pipelinePipelineSourceCodeCommitCodePipelineActionRole6B8C4BD2",
+                  "pipelinePipelineSourceGemeenteNijmegenesbqueueCodePipelineActionRoleEA872778",
                   "Arn",
                 ],
               },
@@ -1299,48 +1226,15 @@ Object {
       },
       "Type": "AWS::IAM::Policy",
     },
-    "pipelinePipelineSourceCodeCommitCodePipelineActionRole6B8C4BD2": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "AWS": Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      "arn:",
-                      Object {
-                        "Ref": "AWS::Partition",
-                      },
-                      ":iam::418648875085:root",
-                    ],
-                  ],
-                },
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "Tags": Array [
-          Object {
-            "Key": "cdkManaged",
-            "Value": "yes",
-          },
-          Object {
-            "Key": "project",
-            "Value": "esb",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "pipelinePipelineSourceCodeCommitCodePipelineActionRoleDefaultPolicy19B448F8": Object {
+    "pipelinePipelineSourceGemeenteNijmegenesbqueueCodePipelineActionRoleDefaultPolicy852738AD": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
+            Object {
+              "Action": "codestar-connections:UseConnection",
+              "Effect": "Allow",
+              "Resource": "arn:aws:codestar-connections:eu-west-1:418648875085:connection/4f647929-c982-4f30-94f4-24ff7dbf9766",
+            },
             Object {
               "Action": Array [
                 "s3:GetObject*",
@@ -1391,32 +1285,72 @@ Object {
               },
             },
             Object {
-              "Action": Array [
-                "codecommit:GetBranch",
-                "codecommit:GetCommit",
-                "codecommit:UploadArchive",
-                "codecommit:GetUploadArchiveStatus",
-                "codecommit:CancelUploadArchive",
-              ],
+              "Action": "s3:PutObjectAcl",
               "Effect": "Allow",
               "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "repository9F1A3F0B",
-                  "Arn",
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "pipelinePipelineArtifactsBucketC2CD5B5E",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
+                  ],
                 ],
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "pipelinePipelineSourceCodeCommitCodePipelineActionRoleDefaultPolicy19B448F8",
+        "PolicyName": "pipelinePipelineSourceGemeenteNijmegenesbqueueCodePipelineActionRoleDefaultPolicy852738AD",
         "Roles": Array [
           Object {
-            "Ref": "pipelinePipelineSourceCodeCommitCodePipelineActionRole6B8C4BD2",
+            "Ref": "pipelinePipelineSourceGemeenteNijmegenesbqueueCodePipelineActionRoleEA872778",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
+    },
+    "pipelinePipelineSourceGemeenteNijmegenesbqueueCodePipelineActionRoleEA872778": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::418648875085:root",
+                    ],
+                  ],
+                },
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Tags": Array [
+          Object {
+            "Key": "cdkManaged",
+            "Value": "yes",
+          },
+          Object {
+            "Key": "project",
+            "Value": "esb",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
     },
     "pipelinePipelineUpdatePipelineSelfMutateCodePipelineActionRole616B0B5B": Object {
       "Properties": Object {
@@ -2945,79 +2879,6 @@ Object {
         ],
       },
       "Type": "AWS::IAM::Policy",
-    },
-    "repository9F1A3F0B": Object {
-      "Properties": Object {
-        "RepositoryName": "esb-repository",
-        "Tags": Array [
-          Object {
-            "Key": "cdkManaged",
-            "Value": "yes",
-          },
-          Object {
-            "Key": "project",
-            "Value": "esb",
-          },
-        ],
-      },
-      "Type": "AWS::CodeCommit::Repository",
-    },
-    "repositorytestpipelinePipeline0D47F079mainEventRule574B9518": Object {
-      "Properties": Object {
-        "EventPattern": Object {
-          "detail": Object {
-            "event": Array [
-              "referenceCreated",
-              "referenceUpdated",
-            ],
-            "referenceName": Array [
-              "main",
-            ],
-          },
-          "detail-type": Array [
-            "CodeCommit Repository State Change",
-          ],
-          "resources": Array [
-            Object {
-              "Fn::GetAtt": Array [
-                "repository9F1A3F0B",
-                "Arn",
-              ],
-            },
-          ],
-          "source": Array [
-            "aws.codecommit",
-          ],
-        },
-        "State": "ENABLED",
-        "Targets": Array [
-          Object {
-            "Arn": Object {
-              "Fn::Join": Array [
-                "",
-                Array [
-                  "arn:",
-                  Object {
-                    "Ref": "AWS::Partition",
-                  },
-                  ":codepipeline:eu-west-1:418648875085:",
-                  Object {
-                    "Ref": "pipelinePipeline4163A4B1",
-                  },
-                ],
-              ],
-            },
-            "Id": "Target0",
-            "RoleArn": Object {
-              "Fn::GetAtt": Array [
-                "pipelinePipelineEventsRole49C5F40E",
-                "Arn",
-              ],
-            },
-          },
-        ],
-      },
-      "Type": "AWS::Events::Rule",
     },
   },
 }

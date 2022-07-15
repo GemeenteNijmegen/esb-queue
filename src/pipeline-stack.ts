@@ -1,4 +1,3 @@
-import * as pipelines from '@aws-cdk/pipelines';
 import * as core from '@aws-cdk/core';
 import * as cdkpipelines from '@aws-cdk/pipelines';
 import { esbGenericServicesStack } from './esb-generic-services-stack';
@@ -35,14 +34,9 @@ export class PipelineStack extends core.Stack {
     /**
      * Main repository
      */
-    // const repository = new codecommit.Repository(this, 'repository', {
-    //   repositoryName: 'esb-repository',
-    // });
-
-    const source = pipelines.CodePipelineSource.connection(statics.projectRepo, 'main', {
+    const source = cdkpipelines.CodePipelineSource.connection(statics.projectRepo, 'main', {
       connectionArn: statics.codeStarConnectionArn,
     });
-
 
     /**
      * Main pipeline
