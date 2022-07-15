@@ -53,7 +53,7 @@ export class PipelineStack extends Stack {
       pipelineName: 'esb-pipeline',
       crossAccountKeys: true,
       synth: new cdkpipelines.ShellStep('Synth', {
-        input: cdkpipelines.CodePipelineSource.codeCommit(repository, 'main'),
+        input: source,
         commands: [
           'yarn install --frozen-lockfile', //nodig om projen geinstalleerd te krijgen
           'yarn build',
