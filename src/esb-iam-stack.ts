@@ -1,4 +1,5 @@
-import * as core from '@aws-cdk/core';
+import * as core from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 import { esbIAMMule } from './iam-structs/esb-mule-struct';
 import { statics } from './statics';
 
@@ -7,7 +8,7 @@ export interface iamStackProps extends core.StackProps {
 };
 
 export class esbIamStack extends core.Stack {
-  constructor(scope: core.Construct, id: string, props: iamStackProps) {
+  constructor(scope: Construct, id: string, props: iamStackProps) {
     super(scope, id, props);
     core.Tags.of(this).add('cdkManaged', 'yes');
     core.Tags.of(this).add('Project', 'esb');
