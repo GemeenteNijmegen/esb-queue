@@ -1,13 +1,20 @@
-import * as codecommit from '@aws-cdk/aws-codecommit';
-import * as core from '@aws-cdk/core';
-import * as cdkpipelines from '@aws-cdk/pipelines';
+import { 
+  Stage,
+  StageProps,
+  Stack,
+  StackProps,
+  Tags,
+  pipelines,
+} from 'aws-cdk-lib';
+import * as cdkpipelines from 'aws-cdk-lib/pipelines';
+import { Construct } from 'constructs';
 import { esbGenericServicesStack } from './esb-generic-services-stack';
 import { esbIamStack } from './esb-iam-stack';
 import { statics } from './statics';
 
-class esbStage extends core.Stage {
+class esbStage extends Stage {
 
-  constructor(scope: core.Construct, id: string, props: core.StageProps) {
+  constructor(scope: Construct, id: string, props: StageProps) {
     super(scope, id, props);
 
     /**
@@ -25,18 +32,18 @@ class esbStage extends core.Stage {
   }
 }
 
-export class PipelineStack extends core.Stack {
+export class PipelineStack extends Stack {
 
-  constructor(scope: core.Construct, id: string, props?: core.StackProps) {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super (scope, id, props);
-    core.Tags.of(this).add('cdkManaged', 'yes');
-    core.Tags.of(this).add('project', 'esb');
+    Tags.of(this).add('cdkManaged', 'yes');
+    Tags.of(this).add('project', 'esb');
 
     /**
      * Main repository
      */
-    const repository = new codecommit.Repository(this, 'repository', {
-      repositoryName: 'esb-repository',
+    const source = pipelines.CodePipelineSource.connection(statics.projectRepo, 'main', {
+      connectionArn: statics.codeStarConnectionArn,
     });
 
     /**
@@ -49,8 +56,7 @@ export class PipelineStack extends core.Stack {
         input: cdkpipelines.CodePipelineSource.codeCommit(repository, 'main'),
         commands: [
           'yarn install --frozen-lockfile', //nodig om projen geinstalleerd te krijgen
-          'npx projen build',
-          'npx projen synth',
+          'yarn build',
         ],
       }),
     });

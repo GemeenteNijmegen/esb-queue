@@ -84,7 +84,7 @@ Object {
                   "Version": "1",
                 },
                 "Configuration": Object {
-                  "EnvironmentVariables": "[{\\"name\\":\\"_PROJECT_CONFIG_HASH\\",\\"type\\":\\"PLAINTEXT\\",\\"value\\":\\"7eafe4f3fbf3743ef757dbf643a09d8ec87ce595976062b78f51922ea699a615\\"}]",
+                  "EnvironmentVariables": "[{\\"name\\":\\"_PROJECT_CONFIG_HASH\\",\\"type\\":\\"PLAINTEXT\\",\\"value\\":\\"d51caabd0e26116c058f595b6ea1a2c641ef665e73b32f4b4aa960b36bf0ac73\\"}]",
                   "ProjectName": Object {
                     "Ref": "pipelinePipelineBuildSynthCdkBuildProject4237770A",
                   },
@@ -768,8 +768,7 @@ Object {
     \\"build\\": {
       \\"commands\\": [
         \\"yarn install --frozen-lockfile\\",
-        \\"npx projen build\\",
-        \\"npx projen synth\\"
+        \\"yarn build\\"
       ]
     }
   },

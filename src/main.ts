@@ -1,4 +1,4 @@
-import * as core from '@aws-cdk/core';
+import { App } from 'aws-cdk-lib';
 import { PipelineStack } from './pipeline-stack';
 
 const deploymentAccount = {
@@ -6,7 +6,7 @@ const deploymentAccount = {
   region: 'eu-west-1',
 };
 
-const app = new core.App();
+const app = new App();
 
 new PipelineStack(app, 'esb-pipeline', { env: deploymentAccount });
 
