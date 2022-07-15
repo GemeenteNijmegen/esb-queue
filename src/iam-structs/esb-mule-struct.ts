@@ -1,13 +1,14 @@
-import * as iam from '@aws-cdk/aws-iam';
-import * as core from '@aws-cdk/core';
+import * as iam from 'aws-cdk-lib/aws-iam';
+import * as core from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export interface esbIAMMuleProps extends core.StackProps {
   esbSqsArn: string;
   iamAccountPrincipal: string;
 };
 
-export class esbIAMMule extends core.Construct {
-  constructor(scope: core.Construct, id: string, props: esbIAMMuleProps) {
+export class esbIAMMule extends Construct {
+  constructor(scope: Construct, id: string, props: esbIAMMuleProps) {
     super(scope, id);
 
     /**
