@@ -1,4 +1,4 @@
-import * as codecommit from '@aws-cdk/aws-codecommit';
+import * as pipelines from '@aws-cdk/pipelines';
 import * as core from '@aws-cdk/core';
 import * as cdkpipelines from '@aws-cdk/pipelines';
 import { esbGenericServicesStack } from './esb-generic-services-stack';
@@ -35,9 +35,14 @@ export class PipelineStack extends core.Stack {
     /**
      * Main repository
      */
-    const repository = new codecommit.Repository(this, 'repository', {
-      repositoryName: 'esb-repository',
+    // const repository = new codecommit.Repository(this, 'repository', {
+    //   repositoryName: 'esb-repository',
+    // });
+
+    const source = pipelines.CodePipelineSource.connection(statics.projectRepo, 'main', {
+      connectionArn: statics.codeStarConnectionArn,
     });
+
 
     /**
      * Main pipeline
@@ -46,11 +51,10 @@ export class PipelineStack extends core.Stack {
       pipelineName: 'esb-pipeline',
       crossAccountKeys: true,
       synth: new cdkpipelines.ShellStep('Synth', {
-        input: cdkpipelines.CodePipelineSource.codeCommit(repository, 'main'),
+        input: source,
         commands: [
           'yarn install --frozen-lockfile', //nodig om projen geinstalleerd te krijgen
-          'npx projen build',
-          'npx projen synth',
+          'yarn build',
         ],
       }),
     });
