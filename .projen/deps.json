@@ -21,7 +21,7 @@
     },
     {
       "name": "aws-cdk",
-      "version": "^2.32.0",
+      "version": "^2.35.0",
       "type": "build"
     },
     {
@@ -60,12 +60,16 @@
     },
     {
       "name": "npm-check-updates",
-      "version": "^12",
+      "version": "^15",
       "type": "build"
     },
     {
       "name": "projen",
-      "version": "0.58.30",
+      "type": "build"
+    },
+    {
+      "name": "standard-version",
+      "version": "^9",
       "type": "build"
     },
     {
@@ -81,8 +85,12 @@
       "type": "build"
     },
     {
+      "name": "@gemeentenijmegen/modules-projen",
+      "type": "runtime"
+    },
+    {
       "name": "aws-cdk-lib",
-      "version": "^2.32.0",
+      "version": "^2.35.0",
       "type": "runtime"
     },
     {

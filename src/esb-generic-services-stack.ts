@@ -1,3 +1,4 @@
+import * as core from 'aws-cdk-lib';
 import * as cloudwatch from 'aws-cdk-lib/aws-cloudwatch';
 import * as cloudwatch_actions from 'aws-cdk-lib/aws-cloudwatch-actions';
 import * as iam from 'aws-cdk-lib/aws-iam';
@@ -5,7 +6,6 @@ import * as kms from 'aws-cdk-lib/aws-kms';
 import * as sns from 'aws-cdk-lib/aws-sns';
 import * as sqs from 'aws-cdk-lib/aws-sqs';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
-import * as core from 'aws-cdk-lib/core';
 import { Construct } from 'constructs';
 
 export class esbGenericServicesStack extends core.Stack {
