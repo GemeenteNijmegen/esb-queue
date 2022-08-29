@@ -10,7 +10,7 @@ import { Construct } from 'constructs';
 
 export class esbGenericServicesStack extends core.Stack {
 
-  constructor(scope: Construct, id: string, props: core.StackProps) {
+  constructor(scope: Construct, id: string, props: core.StackProps, isAcceptance: boolean) {
     super(scope, id, props);
     core.Tags.of(this).add('cdkManaged', 'yes');
     core.Tags.of(this).add('Project', 'esb');
@@ -69,10 +69,17 @@ export class esbGenericServicesStack extends core.Stack {
       stringValue: eformSqs.queueArn,
     });
 
-    new CfnOutput(this, 'esb-eform-submissions-queue-arn-output', { // TODO remove this, however deployment fail right now as this output is deleted by the cloudformation upgrade.
-      value: eformSqs.queueArn,
-      exportName: 'esbAcceptance-esbGenericServices:esbAcceptanceesbGenericServicesExportsOutputFnGetAttesbeformsubmissionsqueue89F903F0ArnFBA3247A',
-    });
+    if (isAcceptance) { // TODO remove this, however deployment fail right now as this output is deleted by the cloudformation upgrade.
+      new CfnOutput(this, 'esb-eform-submissions-queue-arn-output', {
+        value: eformSqs.queueArn,
+        exportName: 'esbAcceptance-esbGenericServices:esbAcceptanceesbGenericServicesExportsOutputFnGetAttesbeformsubmissionsqueue89F903F0ArnFBA3247A',
+      });
+    } else {
+      new CfnOutput(this, 'esb-eform-submissions-queue-arn-output', {
+        value: eformSqs.queueArn,
+        exportName: 'esbProduction-esbGenericServices:esbProductionesbGenericServicesExportsOutputFnGetAttesbeformsubmissionsqueue89F903F0Arn9207A351',
+      });
+    }
 
     /**
      * Policy document: custom access policy for eform sqs.
