@@ -1,16 +1,18 @@
-import * as cloudwatch from '@aws-cdk/aws-cloudwatch';
-import * as cloudwatch_actions from '@aws-cdk/aws-cloudwatch-actions';
-import * as iam from '@aws-cdk/aws-iam';
-import * as kms from '@aws-cdk/aws-kms';
-import * as sns from '@aws-cdk/aws-sns';
-import * as sqs from '@aws-cdk/aws-sqs';
-import * as ssm from '@aws-cdk/aws-ssm';
-import * as core from '@aws-cdk/core';
+import * as core from 'aws-cdk-lib';
+import * as cloudwatch from 'aws-cdk-lib/aws-cloudwatch';
+import * as cloudwatch_actions from 'aws-cdk-lib/aws-cloudwatch-actions';
+import * as iam from 'aws-cdk-lib/aws-iam';
+import * as kms from 'aws-cdk-lib/aws-kms';
+import * as sns from 'aws-cdk-lib/aws-sns';
+import * as sqs from 'aws-cdk-lib/aws-sqs';
+import * as ssm from 'aws-cdk-lib/aws-ssm';
+import { Construct } from 'constructs';
 
 export class esbGenericServicesStack extends core.Stack {
+
   public readonly eformSqsArn: string; //used in IAM policy,
 
-  constructor(scope: core.Construct, id: string, props: core.StackProps) {
+  constructor(scope: Construct, id: string, props: core.StackProps) {
     super(scope, id, props);
     core.Tags.of(this).add('cdkManaged', 'yes');
     core.Tags.of(this).add('Project', 'esb');
@@ -110,6 +112,7 @@ export class esbGenericServicesStack extends core.Stack {
       alarmName: 'esb-eform-sqs-dlq-alarm',
       alarmDescription: 'CloudWatch alarm that triggers when number of messages returned by calls to the ReceiveMessage action exceeds 0 on esb sqs dlq.',
     });
+
     // Send alarm action to eform submissions generic alarm sns topic, sends a message to the Teams channel.
     cloudWatchAlarmEsbSqsDlq.addAlarmAction(new cloudwatch_actions.SnsAction(eformSubmissionsSnsGenericAlarmTopic));
 
