@@ -284,6 +284,33 @@ Object {
                   "Version": "1",
                 },
                 "Configuration": Object {
+                  "ActionMode": "CHANGE_SET_EXECUTE",
+                  "ChangeSetName": "PipelineChange",
+                  "StackName": "esbAcceptance-esbGenericServices",
+                },
+                "Name": "esbGenericServices.Deploy",
+                "RoleArn": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::315037222840:role/cdk-hnb659fds-deploy-role-315037222840-eu-west-1",
+                    ],
+                  ],
+                },
+                "RunOrder": 2,
+              },
+              Object {
+                "ActionTypeId": Object {
+                  "Category": "Deploy",
+                  "Owner": "AWS",
+                  "Provider": "CloudFormation",
+                  "Version": "1",
+                },
+                "Configuration": Object {
                   "ActionMode": "CHANGE_SET_REPLACE",
                   "Capabilities": "CAPABILITY_NAMED_IAM,CAPABILITY_AUTO_EXPAND",
                   "ChangeSetName": "PipelineChange",
@@ -321,34 +348,7 @@ Object {
                     ],
                   ],
                 },
-                "RunOrder": 1,
-              },
-              Object {
-                "ActionTypeId": Object {
-                  "Category": "Deploy",
-                  "Owner": "AWS",
-                  "Provider": "CloudFormation",
-                  "Version": "1",
-                },
-                "Configuration": Object {
-                  "ActionMode": "CHANGE_SET_EXECUTE",
-                  "ChangeSetName": "PipelineChange",
-                  "StackName": "esbAcceptance-esbGenericServices",
-                },
-                "Name": "esbGenericServices.Deploy",
-                "RoleArn": Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      "arn:",
-                      Object {
-                        "Ref": "AWS::Partition",
-                      },
-                      ":iam::315037222840:role/cdk-hnb659fds-deploy-role-315037222840-eu-west-1",
-                    ],
-                  ],
-                },
-                "RunOrder": 2,
+                "RunOrder": 3,
               },
               Object {
                 "ActionTypeId": Object {
@@ -375,7 +375,7 @@ Object {
                     ],
                   ],
                 },
-                "RunOrder": 2,
+                "RunOrder": 4,
               },
             ],
             "Name": "esbAcceptance",
@@ -437,6 +437,33 @@ Object {
                   "Version": "1",
                 },
                 "Configuration": Object {
+                  "ActionMode": "CHANGE_SET_EXECUTE",
+                  "ChangeSetName": "PipelineChange",
+                  "StackName": "esbProduction-esbGenericServices",
+                },
+                "Name": "esbGenericServices.Deploy",
+                "RoleArn": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::196212984627:role/cdk-hnb659fds-deploy-role-196212984627-eu-west-1",
+                    ],
+                  ],
+                },
+                "RunOrder": 2,
+              },
+              Object {
+                "ActionTypeId": Object {
+                  "Category": "Deploy",
+                  "Owner": "AWS",
+                  "Provider": "CloudFormation",
+                  "Version": "1",
+                },
+                "Configuration": Object {
                   "ActionMode": "CHANGE_SET_REPLACE",
                   "Capabilities": "CAPABILITY_NAMED_IAM,CAPABILITY_AUTO_EXPAND",
                   "ChangeSetName": "PipelineChange",
@@ -474,34 +501,7 @@ Object {
                     ],
                   ],
                 },
-                "RunOrder": 1,
-              },
-              Object {
-                "ActionTypeId": Object {
-                  "Category": "Deploy",
-                  "Owner": "AWS",
-                  "Provider": "CloudFormation",
-                  "Version": "1",
-                },
-                "Configuration": Object {
-                  "ActionMode": "CHANGE_SET_EXECUTE",
-                  "ChangeSetName": "PipelineChange",
-                  "StackName": "esbProduction-esbGenericServices",
-                },
-                "Name": "esbGenericServices.Deploy",
-                "RoleArn": Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      "arn:",
-                      Object {
-                        "Ref": "AWS::Partition",
-                      },
-                      ":iam::196212984627:role/cdk-hnb659fds-deploy-role-196212984627-eu-west-1",
-                    ],
-                  ],
-                },
-                "RunOrder": 2,
+                "RunOrder": 3,
               },
               Object {
                 "ActionTypeId": Object {
@@ -528,7 +528,7 @@ Object {
                     ],
                   ],
                 },
-                "RunOrder": 2,
+                "RunOrder": 4,
               },
             ],
             "Name": "esbProduction",
