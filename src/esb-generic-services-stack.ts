@@ -1,4 +1,5 @@
 import * as core from 'aws-cdk-lib';
+import { CfnOutput } from 'aws-cdk-lib';
 import * as cloudwatch from 'aws-cdk-lib/aws-cloudwatch';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as kms from 'aws-cdk-lib/aws-kms';
@@ -8,8 +9,6 @@ import * as ssm from 'aws-cdk-lib/aws-ssm';
 import { Construct } from 'constructs';
 
 export class esbGenericServicesStack extends core.Stack {
-
-  public readonly eformSqsArn: string; //used in IAM policy,
 
   constructor(scope: Construct, id: string, props: core.StackProps) {
     super(scope, id, props);
@@ -64,7 +63,16 @@ export class esbGenericServicesStack extends core.Stack {
         maxReceiveCount: 1,
       },
     });
-    this.eformSqsArn = eformSqs.queueArn;
+
+    new ssm.StringParameter(this, 'esb-eform-submissions-queue-arn', {
+      parameterName: '/cdk/esb/queue/arn',
+      stringValue: eformSqs.queueArn,
+    });
+
+    new CfnOutput(this, 'esb-eform-submissions-queue-arn-output', { // TODO remove this, however deployment fail right now as this output is deleted by the cloudformation upgrade.
+      value: eformSqs.queueArn,
+      exportName: 'esbGenericServices:esbAcceptanceesbGenericServicesExportsOutputFnGetAttesbeformsubmissionsqueue89F903F0ArnFBA3247A',
+    });
 
     /**
      * Policy document: custom access policy for eform sqs.
