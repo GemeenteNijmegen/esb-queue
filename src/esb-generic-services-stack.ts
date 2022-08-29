@@ -71,7 +71,7 @@ export class esbGenericServicesStack extends core.Stack {
 
     new CfnOutput(this, 'esb-eform-submissions-queue-arn-output', { // TODO remove this, however deployment fail right now as this output is deleted by the cloudformation upgrade.
       value: eformSqs.queueArn,
-      exportName: 'esbGenericServices:esbAcceptanceesbGenericServicesExportsOutputFnGetAttesbeformsubmissionsqueue89F903F0ArnFBA3247A',
+      exportName: 'esbAcceptance-esbGenericServices:esbAcceptanceesbGenericServicesExportsOutputFnGetAttesbeformsubmissionsqueue89F903F0ArnFBA3247A',
     });
 
     /**
