@@ -1,6 +1,5 @@
 import * as core from 'aws-cdk-lib';
 import * as cloudwatch from 'aws-cdk-lib/aws-cloudwatch';
-import * as cloudwatch_actions from 'aws-cdk-lib/aws-cloudwatch-actions';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as kms from 'aws-cdk-lib/aws-kms';
 import * as sns from 'aws-cdk-lib/aws-sns';
@@ -95,14 +94,10 @@ export class esbGenericServicesStack extends core.Stack {
     });
 
     /**
-     * Sns Topic from eform project: eform submissions delivery status sns topic.
-     */
-    const eformSubmissionsSnsGenericAlarmTopic = sns.Topic.fromTopicArn(this, 'eform-submissions-sns-generic-alarm-topic', ssm.StringParameter.valueForStringParameter(this, '/cdk/eform/sns/alarmTopicArn'));
-
-    /**
      * Cloudwatch Alarm that triggers when message from eform submissions is delivered to the esb dlq.
+     * Alarms are automatically picked up by aws-monitoring
      */
-    const cloudWatchAlarmEsbSqsDlq = new cloudwatch.Alarm(this, 'cloudwatch-alarm-esb-sqs-dlq', {
+    new cloudwatch.Alarm(this, 'cloudwatch-alarm-esb-sqs-dlq', {
       metric: eformSqsDlq.metricNumberOfMessagesReceived({
         period: core.Duration.minutes(1), //TODO change to 30 sec because polling takes this amount of time?
       }),
@@ -113,9 +108,5 @@ export class esbGenericServicesStack extends core.Stack {
       alarmDescription: 'CloudWatch alarm that triggers when number of messages returned by calls to the ReceiveMessage action exceeds 0 on esb sqs dlq.',
     });
 
-    // Send alarm action to eform submissions generic alarm sns topic, sends a message to the Teams channel.
-    cloudWatchAlarmEsbSqsDlq.addAlarmAction(new cloudwatch_actions.SnsAction(eformSubmissionsSnsGenericAlarmTopic));
-
-    //TODO add parameters
   }
 }
