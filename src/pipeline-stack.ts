@@ -20,15 +20,13 @@ class esbStage extends Stage {
     /**
      * Stack: esb generic services
      */
-    const esbGenericsStack = new esbGenericServicesStack(this, 'esbGenericServices', {});
+    new esbGenericServicesStack(this, 'esbGenericServices', {});
 
     /**
      * Stack: esb iam
      * Depends on GenericServicesStack
      */
-    new esbIamStack(this, 'esbIam', {
-      esbSqsArn: esbGenericsStack.eformSqsArn,
-    });
+    new esbIamStack(this, 'esbIam');
   }
 }
 
