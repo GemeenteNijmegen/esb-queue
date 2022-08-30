@@ -14,13 +14,13 @@ import { statics } from './statics';
 
 class esbStage extends Stage {
 
-  constructor(scope: Construct, id: string, props: StageProps, isAcceptance: boolean) {
+  constructor(scope: Construct, id: string, props: StageProps) {
     super(scope, id, props);
 
     /**
      * Stack: esb generic services
      */
-    const queues = new esbGenericServicesStack(this, 'esbGenericServices', {}, isAcceptance);
+    const queues = new esbGenericServicesStack(this, 'esbGenericServices', {});
 
     /**
      * Stack: esb iam
@@ -66,7 +66,7 @@ export class PipelineStack extends Stack {
         account: statics.AWS_ACCOUNT_AUTH_ACCP,
         region: 'eu-west-1',
       },
-    }, true),
+    }),
     );
 
     pipeline.addStage( new esbStage(this, 'esbProduction', {
@@ -74,7 +74,7 @@ export class PipelineStack extends Stack {
         account: statics.AWS_ACCCOUNT_AUTH_PROD,
         region: 'eu-west-1',
       },
-    }, false),
+    }),
     );
   }
 }

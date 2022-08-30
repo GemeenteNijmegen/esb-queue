@@ -1,5 +1,4 @@
 import * as core from 'aws-cdk-lib';
-import { CfnOutput } from 'aws-cdk-lib';
 import * as cloudwatch from 'aws-cdk-lib/aws-cloudwatch';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as kms from 'aws-cdk-lib/aws-kms';
@@ -10,7 +9,7 @@ import { Construct } from 'constructs';
 
 export class esbGenericServicesStack extends core.Stack {
 
-  constructor(scope: Construct, id: string, props: core.StackProps, isAcceptance: boolean) {
+  constructor(scope: Construct, id: string, props: core.StackProps) {
     super(scope, id, props);
     core.Tags.of(this).add('cdkManaged', 'yes');
     core.Tags.of(this).add('Project', 'esb');
@@ -68,18 +67,6 @@ export class esbGenericServicesStack extends core.Stack {
       parameterName: '/cdk/esb/queue/arn',
       stringValue: eformSqs.queueArn,
     });
-
-    if (isAcceptance) { // TODO remove this, however deployment fail right now as this output is deleted by the cloudformation upgrade.
-      new CfnOutput(this, 'esb-eform-submissions-queue-arn-output', {
-        value: eformSqs.queueArn,
-        exportName: 'esbAcceptance-esbGenericServices:esbAcceptanceesbGenericServicesExportsOutputFnGetAttesbeformsubmissionsqueue89F903F0ArnFBA3247A',
-      });
-    } else {
-      new CfnOutput(this, 'esb-eform-submissions-queue-arn-output', {
-        value: eformSqs.queueArn,
-        exportName: 'esbProduction-esbGenericServices:esbProductionesbGenericServicesExportsOutputFnGetAttesbeformsubmissionsqueue89F903F0Arn9207A351',
-      });
-    }
 
     /**
      * Policy document: custom access policy for eform sqs.
