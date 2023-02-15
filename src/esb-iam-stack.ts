@@ -11,7 +11,8 @@ export class esbIamStack extends core.Stack {
     core.Tags.of(this).add('cdkManaged', 'yes');
     core.Tags.of(this).add('Project', 'esb');
 
-    const esbSqsArn = ssm.StringParameter.valueForStringParameter(this, '/cdk/esb/queue/arn');
+    const esbSqsArn = ssm.StringParameter.valueForStringParameter(this, statics.ssmName_esbSqsArn);
+    const esfMailNotificationSqsArn = ssm.StringParameter.valueForStringParameter(this, statics.ssmNmae_esfMailNotificationArn)
 
     /**
      * IAM Construct for mule
@@ -19,6 +20,7 @@ export class esbIamStack extends core.Stack {
     new esbIAMMule(this, 'esbMule', {
       iamAccountPrincipal: statics.AWS_ACCOUNT_IAM,
       esbSqsArn: esbSqsArn,
+      esfMailNotificationSqsArn: esfMailNotificationSqsArn,
     });
   }
 }
