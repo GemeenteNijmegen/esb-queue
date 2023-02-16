@@ -1,6 +1,7 @@
 import * as core from 'aws-cdk-lib';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as lambdaEventSources from 'aws-cdk-lib/aws-lambda-event-sources';
 import { RetentionDays } from 'aws-cdk-lib/aws-logs';
 import * as sqs from 'aws-cdk-lib/aws-sqs';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
@@ -54,6 +55,9 @@ export function setupEsfNotificationMail(
     },
   });
   esfMailNotificationSQSqueue.grantConsumeMessages(esfMailNotificationLambda);
+
+  // Add lambda to SQS event source (lamdba trigger)
+  esfMailNotificationLambda.addEventSource(new lambdaEventSources.SqsEventSource(esfMailNotificationSQSqueue));
 
   new ssm.StringParameter(scope, 'esf-mail-notification-sqs-arn', {
     stringValue: esfMailNotificationSQSqueue.queueArn,
