@@ -4,6 +4,7 @@ import { Construct } from 'constructs';
 
 export interface esbIAMMuleProps extends core.StackProps {
   esbSqsArn: string;
+  esfMailNotificationSqsArn: string;
   iamAccountPrincipal: string;
 };
 
@@ -25,7 +26,7 @@ export class esbIAMMule extends Construct {
       description: 'custom access rights to poll from sqs',
     });
 
-    const sqs_statement = new iam.PolicyStatement({
+    const sqs_pull_statement = new iam.PolicyStatement({
       effect: iam.Effect.ALLOW,
       actions: ['sqs:Get*',
         'sqs:List*',
@@ -34,7 +35,16 @@ export class esbIAMMule extends Construct {
       resources: [props.esbSqsArn],
     });
 
-    policy.addStatements(sqs_statement);
+    const sqs_push_statement = new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: ['sqs:Get*',
+        'sqs:List*',
+        'sqs:SendMessage'],
+      resources: [props.esfMailNotificationSqsArn],
+    });
+
+    policy.addStatements(sqs_pull_statement);
+    policy.addStatements(sqs_push_statement);
     policy.attachToRole(esbSqsMuleRole);
   }
 }

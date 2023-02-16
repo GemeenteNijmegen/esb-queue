@@ -12,15 +12,19 @@ import { esbGenericServicesStack } from './esb-generic-services-stack';
 import { esbIamStack } from './esb-iam-stack';
 import { statics } from './statics';
 
+export interface esbStageProps extends StageProps {
+  domainName: string;
+}
+
 class esbStage extends Stage {
 
-  constructor(scope: Construct, id: string, props: StageProps) {
+  constructor(scope: Construct, id: string, props: esbStageProps) {
     super(scope, id, props);
 
     /**
      * Stack: esb generic services
      */
-    const queues = new esbGenericServicesStack(this, 'esbGenericServices', {});
+    const queues = new esbGenericServicesStack(this, 'esbGenericServices', props);
 
     /**
      * Stack: esb iam
@@ -66,6 +70,7 @@ export class PipelineStack extends Stack {
         account: statics.AWS_ACCOUNT_AUTH_ACCP,
         region: 'eu-west-1',
       },
+      domainName: 'accp.csp-nijmegen.nl',
     }),
     );
 
@@ -74,6 +79,7 @@ export class PipelineStack extends Stack {
         account: statics.AWS_ACCCOUNT_AUTH_PROD,
         region: 'eu-west-1',
       },
+      domainName: 'nijmegen.nl',
     }),
     );
   }

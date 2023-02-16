@@ -15,4 +15,10 @@ export class statics {
   static readonly codeStarConnectionArn: string = 'arn:aws:codestar-connections:eu-west-1:418648875085:connection/4f647929-c982-4f30-94f4-24ff7dbf9766';
   static readonly projectRepo : string = 'GemeenteNijmegen/esb-queue';
 
+  /**
+   * SSM Parameters
+   */
+  static readonly ssmName_esbSqsArn: string = '/cdk/esb/queue/arn';
+  static readonly ssmName_esfMailNotificationArn: string = '/cdk/esb/esf/notificationMail/arn';
+
 }

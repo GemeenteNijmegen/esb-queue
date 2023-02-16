@@ -6,10 +6,15 @@ import * as sns from 'aws-cdk-lib/aws-sns';
 import * as sqs from 'aws-cdk-lib/aws-sqs';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
 import { Construct } from 'constructs';
+import { setupEsfNotificationMail } from './esf-mail/esf-mail-notification';
+
+export interface esbGenericServicesStackProps extends core.StackProps {
+  domainName: string;
+}
 
 export class esbGenericServicesStack extends core.Stack {
 
-  constructor(scope: Construct, id: string, props: core.StackProps) {
+  constructor(scope: Construct, id: string, props: esbGenericServicesStackProps) {
     super(scope, id, props);
     core.Tags.of(this).add('cdkManaged', 'yes');
     core.Tags.of(this).add('Project', 'esb');
@@ -109,6 +114,11 @@ export class esbGenericServicesStack extends core.Stack {
       alarmName: 'esb-eform-sqs-dlq-alarm',
       alarmDescription: 'CloudWatch alarm that triggers when number of messages returned by calls to the ReceiveMessage action exceeds 0 on esb sqs dlq.',
     });
+
+    /**
+     * Configure the ESF notification mail.
+     */
+    setupEsfNotificationMail(this, props.domainName);
 
   }
 }
