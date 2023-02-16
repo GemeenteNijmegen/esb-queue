@@ -19,6 +19,6 @@ export class statics {
    * SSM Parameters
    */
   static readonly ssmName_esbSqsArn: string = '/cdk/esb/queue/arn';
-  static readonly ssmNmae_esfMailNotificationArn: string = '/cdk/esb/esf/notificationMail/arn';
+  static readonly ssmName_esfMailNotificationArn: string = '/cdk/esb/esf/notificationMail/arn';
 
 }

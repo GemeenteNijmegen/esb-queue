@@ -40,7 +40,7 @@ export class esbIAMMule extends Construct {
       actions: ['sqs:Get*',
         'sqs:List*',
         'sqs:SendMessage'],
-      resources: [props.esbSqsArn],
+      resources: [props.esfMailNotificationSqsArn],
     });
 
     policy.addStatements(sqs_pull_statement);

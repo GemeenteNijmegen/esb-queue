@@ -3,7 +3,9 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { RetentionDays } from 'aws-cdk-lib/aws-logs';
 import * as sqs from 'aws-cdk-lib/aws-sqs';
+import * as ssm from 'aws-cdk-lib/aws-ssm';
 import { Construct } from 'constructs';
+import { statics } from '../statics';
 
 /**
  * Sends email notifications to mailbox (Nijmegenaar) when certain ESF is ready to be filled in
@@ -11,7 +13,6 @@ import { Construct } from 'constructs';
 export function setupEsfNotificationMail(
   scope: Construct,
   domainName: string,
-  esfMailRole: iam.Role,
 ) {
 
   const esfMailNotificationLambda = new lambda.Function(scope, 'esf-mail-notification-lambda', {
@@ -34,11 +35,28 @@ export function setupEsfNotificationMail(
       }),
     ],
   });
-  const fnUrl = esfMailNotificationLambda.addFunctionUrl();
-  fnUrl.grantInvokeUrl(esfMailRole);
 
+  /**
+   * Sqs Dead-Letter Queue: receives 'failed' messages from the esf mail notification queue.
+   */
+  const esfMailNotificationDLQ = new sqs.Queue(scope, 'esf-mail-notification-dlq', {
+    encryption: sqs.QueueEncryption.KMS_MANAGED,
+  });
+
+  /**
+  * Sqs Queue: receives messages (CSV) from esb.
+  */
   const esfMailNotificationSQSqueue = new sqs.Queue(scope, 'esf-mail-notification-sqs', {
-    //TODO settings
+    encryption: sqs.QueueEncryption.KMS_MANAGED,
+    deadLetterQueue: {
+      queue: esfMailNotificationDLQ,
+      maxReceiveCount: 1,
+    },
   });
   esfMailNotificationSQSqueue.grantConsumeMessages(esfMailNotificationLambda);
+
+  new ssm.StringParameter(scope, 'esf-mail-notification-sqs-arn', {
+    stringValue: esfMailNotificationSQSqueue.queueArn,
+    parameterName: statics.ssmName_esfMailNotificationArn,
+  });
 }

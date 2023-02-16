@@ -53,18 +53,22 @@ def create_email_message():
     in SES.
     """
     # The subject line for the email.
-    subject = f"Notificatie formulier {reference}"
+    subject = f"Notificatie formulier"
     
     # The email body for recipients with non-HTML email clients.
-    body_text = (f"Er is een online aanvraag '{formTypeId}' ingediend met als referentie: {reference}.\r\n"
-                f"Om deze aanvraag in te zien, klik op de link naar gedeelde map: {shareUrl}"
+    body_text = ("Beste lezer,\r\n" 
+                 "\r\n"
+                 f"Het statusformulier van [maand, jaartal] staat voor u klaar.\r\n"
+                 "\r\n"
+                 f"Vul het formulier in vóór [1 maand, jaartal]. Vult u het formulier later dan [1 maand, jaartal] in, dan krijgt u uw uitkering later."
                 )
                 
     # The HTML body of the email.
     body_html = f"""<html>
     <body>
-        <p>Er is een online aanvraag '{formTypeId}' ingediend met als referentie: {reference}.</p>
-        <p>Om deze aanvraag in te zien, klik op de link naar gedeelde map: <a href='{shareUrl}'>{shareUrl}</a></p>
+        <p>Beste lezer,</p>
+        <p>Het statusformulier van [maand, jaartal] staat voor u klaar.</p>
+        <p>Vul het formulier in vóór [1 maand, jaartal]. Vult u het formulier later dan [1 maand, jaartal] in, dan krijgt u uw uitkering later.</p>
     </body>
     </html>
                 """
