@@ -22,7 +22,7 @@ export function setupEsfNotificationMail(
     handler: 'index.lambda_handler',
     code: lambda.Code.fromAsset('src/esf-mail/esf-mail-notification-lambda'),
     logRetention: RetentionDays.ONE_MONTH,
-    timeout: core.Duration.seconds(120),
+    timeout: core.Duration.seconds(30),
     environment: {
       SENDER_MAIL_ADRESS: 'uitkeringsbeheer@' + domainName,
     },
