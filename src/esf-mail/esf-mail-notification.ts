@@ -1,8 +1,10 @@
 import * as core from 'aws-cdk-lib';
+import { RemovalPolicy } from 'aws-cdk-lib';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as lambdaEventSources from 'aws-cdk-lib/aws-lambda-event-sources';
 import { RetentionDays } from 'aws-cdk-lib/aws-logs';
+import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as sqs from 'aws-cdk-lib/aws-sqs';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
 import { Construct } from 'constructs';
@@ -16,15 +18,34 @@ export function setupEsfNotificationMail(
   domainName: string,
 ) {
 
+  // Backup message to S3 bucket
+  const backupBucket = new s3.Bucket(scope, 'esf-mail-notification-s3-backup', {
+    bucketName: statics.s3Name_esfMailNotificationBackupBucketName,
+    removalPolicy: RemovalPolicy.DESTROY,
+    lifecycleRules: [
+      {
+        id: 'delete objects after 180 days',
+        enabled: true,
+        expiration: core.Duration.days(180),
+      },
+    ],
+  });
+
+  new ssm.StringParameter(scope, 'esf-mail-notification-backup-bucket-arn', {
+    stringValue: backupBucket.bucketArn,
+    parameterName: statics.ssmName_esfMailNotificationBackupBucketArn,
+  });
+
   const esfMailNotificationLambda = new lambda.Function(scope, 'esf-mail-notification-lambda', {
     description: 'Lambda to send email notifications to mailbox when a specific ESF is available',
     runtime: lambda.Runtime.PYTHON_3_9,
     handler: 'index.lambda_handler',
     code: lambda.Code.fromAsset('src/esf-mail/esf-mail-notification-lambda'),
-    logRetention: RetentionDays.ONE_MONTH,
+    logRetention: RetentionDays.SIX_MONTHS,
     timeout: core.Duration.seconds(30),
     environment: {
-      SENDER_MAIL_ADRESS: 'uitkeringsbeheer@' + domainName,
+      SENDER_MAIL_ADRESS: 'dsf@' + domainName,
+      BACKUP_BUCKET_NAME: backupBucket.bucketName,
     },
     initialPolicy: [
       new iam.PolicyStatement({
@@ -32,6 +53,7 @@ export function setupEsfNotificationMail(
         actions: [
           'ses:SendEmail',
           'ses:SendRawEmail',
+          's3:PutObject',
         ],
       }),
     ],
@@ -45,10 +67,11 @@ export function setupEsfNotificationMail(
   });
 
   /**
-  * Sqs Queue: receives messages (CSV) from esb.
+  * Sqs Queue (fifo): receives messages (CSV) from esb.
   */
-  const esfMailNotificationSQSqueue = new sqs.Queue(scope, 'esf-mail-notification-sqs', {
+  const esfMailNotificationSQSqueue = new sqs.Queue(scope, 'esf-mail-notification-sqs-fifo', {
     encryption: sqs.QueueEncryption.KMS_MANAGED,
+    fifo: true, // To enable exactly-once processing
     deadLetterQueue: {
       queue: esfMailNotificationDLQ,
       maxReceiveCount: 1,

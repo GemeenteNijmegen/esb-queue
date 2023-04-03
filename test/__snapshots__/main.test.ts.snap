@@ -49,8 +49,8 @@ Object {
     },
     \\"build\\": {
       \\"commands\\": [
-        \\"cdk-assets --path \\\\\\"assembly-test-esbAcceptance/testesbAcceptanceesbGenericServices2E0221F9.assets.json\\\\\\" --verbose publish \\\\\\"7c7f7f66decd2ea907fb0bb36a93ea5d10d0dc11bc0b7da0c6244f19d547107b:315037222840-eu-west-1\\\\\\"\\",
-        \\"cdk-assets --path \\\\\\"assembly-test-esbProduction/testesbProductionesbGenericServices3F32EB39.assets.json\\\\\\" --verbose publish \\\\\\"7c7f7f66decd2ea907fb0bb36a93ea5d10d0dc11bc0b7da0c6244f19d547107b:196212984627-eu-west-1\\\\\\"\\"
+        \\"cdk-assets --path \\\\\\"assembly-test-esbAcceptance/testesbAcceptanceesbGenericServices2E0221F9.assets.json\\\\\\" --verbose publish \\\\\\"76dc7faef5f3d77da3498cdc825bdf22f0ca4bd2703bfff80aa62952873fe55f:315037222840-eu-west-1\\\\\\"\\",
+        \\"cdk-assets --path \\\\\\"assembly-test-esbProduction/testesbProductionesbGenericServices3F32EB39.assets.json\\\\\\" --verbose publish \\\\\\"76dc7faef5f3d77da3498cdc825bdf22f0ca4bd2703bfff80aa62952873fe55f:196212984627-eu-west-1\\\\\\"\\"
       ]
     }
   }
