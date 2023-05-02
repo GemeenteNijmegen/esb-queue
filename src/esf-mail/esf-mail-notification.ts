@@ -18,9 +18,11 @@ export function setupEsfNotificationMail(
   domainName: string,
 ) {
 
-  // Backup message to S3 bucket
-  const backupBucket = new s3.Bucket(scope, 'esf-mail-notification-s3-backup', {
-    bucketName: statics.s3Name_esfMailNotificationBackupBucketName,
+  /**
+     * Bucket to backup all SES messages
+     */
+  const backupBucket = new s3.Bucket(scope, 'ses-mail-s3-backup', {
+    bucketName: statics.s3Name_sesMailBackupBucketName,
     removalPolicy: RemovalPolicy.DESTROY,
     lifecycleRules: [
       {
@@ -31,9 +33,9 @@ export function setupEsfNotificationMail(
     ],
   });
 
-  new ssm.StringParameter(scope, 'esf-mail-notification-backup-bucket-arn', {
+  new ssm.StringParameter(scope, 'ses-mail-backup-bucket-arn', {
     stringValue: backupBucket.bucketArn,
-    parameterName: statics.ssmName_esfMailNotificationBackupBucketArn,
+    parameterName: statics.ssmName_sesMailBackupBucketArn,
   });
 
   const esfMailNotificationLambda = new lambda.Function(scope, 'esf-mail-notification-lambda', {

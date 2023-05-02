@@ -101,6 +101,10 @@ def create_email_message(inleverdatum, draaidatum):
                  f"Het statusformulier van {draaidatum} staat voor u klaar.\r\n"
                  "\r\n"
                  f"Vul het formulier in vóór {inleverdatum}. Vult u het formulier later dan {inleverdatum} in, dan krijgt u uw uitkering later."
+                 "\r\n"
+                 "Heeft u een partner, vul het formulier dan voor u en uw partner in."
+                 "\r\n"
+                 "http://app6-accp.nijmegen.nl/#/form/ontwikkel/statusformulier"
                 )
                 
     # The HTML body of the email.
