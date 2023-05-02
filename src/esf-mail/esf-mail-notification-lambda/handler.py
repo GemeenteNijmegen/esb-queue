@@ -46,7 +46,7 @@ def backup_message(s3, messageId, klantnummer, correlationId, backupBucketName):
         s3.put_object(
             Body=json.dumps(json_object), # Alternative: bytes(json_object).encode('UTF-8')
             Metadata={
-                'system': 'esf'
+                'project': 'esf'
             },
             Bucket=backupBucketName,
             Key=messageId,
