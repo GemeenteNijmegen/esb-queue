@@ -22,9 +22,4 @@ export class statics {
   static readonly ssmName_esfMailNotificationArn: string = '/cdk/esb/esf/notificationMail/arn';
   static readonly ssmName_sesMailBackupBucketArn: string = '/cdk/esb/sesMailBackupBucketArn/arn';
 
-  /**
-   * S3 Bucket names
-   */
-  static readonly s3Name_sesMailBackupBucketName: string = 'ses-mail-backup-bucket';
-
 }

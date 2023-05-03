@@ -21,8 +21,7 @@ export function setupEsfNotificationMail(
   /**
      * Bucket to backup all SES messages
      */
-  const backupBucket = new s3.Bucket(scope, 'ses-mail-s3-backup', {
-    bucketName: statics.s3Name_sesMailBackupBucketName,
+  const backupBucket = new s3.Bucket(scope, 'ses-mail-s3-backup-bucket', {
     removalPolicy: RemovalPolicy.DESTROY,
     lifecycleRules: [
       {
