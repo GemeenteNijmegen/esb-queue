@@ -20,11 +20,11 @@ export class statics {
    */
   static readonly ssmName_esbSqsArn: string = '/cdk/esb/queue/arn';
   static readonly ssmName_esfMailNotificationArn: string = '/cdk/esb/esf/notificationMail/arn';
-  static readonly ssmName_esfMailNotificationBackupBucketArn: string = '/cdk/esb/esf/notificationMailBackupBucket/arn';
+  static readonly ssmName_sesMailBackupBucketArn: string = '/cdk/esb/sesMailBackupBucketArn/arn';
 
   /**
    * S3 Bucket names
    */
-  static readonly s3Name_esfMailNotificationBackupBucketName: string = 'esf-notification-mail-backup-bucket';
+  static readonly s3Name_sesMailBackupBucketName: string = 'ses-mail-backup-bucket';
 
 }
