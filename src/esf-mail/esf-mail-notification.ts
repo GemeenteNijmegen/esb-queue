@@ -64,8 +64,9 @@ export function setupEsfNotificationMail(
   /**
    * Sqs Dead-Letter Queue: receives 'failed' messages from the esf mail notification queue.
    */
-  const esfMailNotificationDLQ = new sqs.Queue(scope, 'esf-mail-notification-dlq', {
+  const esfMailNotificationDLQ = new sqs.Queue(scope, 'esf-mail-notification-dlq-fifo', {
     encryption: sqs.QueueEncryption.KMS_MANAGED,
+    fifo: true, // Must be same type of queue as source
   });
 
   /**
