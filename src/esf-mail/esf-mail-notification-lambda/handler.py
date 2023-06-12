@@ -107,7 +107,7 @@ def create_email_message(inleverdatum, draaidatum):
                  "\r\n"
                  "Heeft u een partner, vul het formulier dan voor u en uw partner in."
                  "\r\n"
-                 "http://app6-accp.nijmegen.nl/#/form/ontwikkel/statusformulier"
+                 "http://app6.nijmegen.nl/#/form/ontwikkel/statusformulier"
                 )
                 
     # The HTML body of the email.
@@ -117,7 +117,7 @@ def create_email_message(inleverdatum, draaidatum):
         <p>Het statusformulier van {draaidatum} staat voor u klaar.</p>
         <p>Vul het formulier in vóór {inleverdatum}. Vult u het formulier later dan {inleverdatum} in, dan krijgt u uw uitkering later.</p>
         <p>Heeft u een partner, vul het formulier dan voor u en uw partner in.</p>
-        <p>http://app6-accp.nijmegen.nl/#/form/ontwikkel/statusformulier</p>
+        <p>http://app6.nijmegen.nl/#/form/ontwikkel/statusformulier</p>
     </body>
     </html>
                 """
