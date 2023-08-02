@@ -6,11 +6,10 @@ import * as sns from 'aws-cdk-lib/aws-sns';
 import * as sqs from 'aws-cdk-lib/aws-sqs';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
 import { Construct } from 'constructs';
+import { Configurable } from './Configuration';
 import { setupEsfNotificationMail } from './esf-mail/esf-mail-notification';
 
-export interface esbGenericServicesStackProps extends core.StackProps {
-  domainName: string;
-}
+export interface esbGenericServicesStackProps extends core.StackProps, Configurable {}
 
 export class esbGenericServicesStack extends core.Stack {
 
@@ -118,7 +117,7 @@ export class esbGenericServicesStack extends core.Stack {
     /**
      * Configure the ESF notification mail.
      */
-    setupEsfNotificationMail(this, props.domainName);
+    setupEsfNotificationMail(this, props.configuration.domainName);
 
   }
 }
