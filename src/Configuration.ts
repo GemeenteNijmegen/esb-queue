@@ -38,6 +38,11 @@ export interface Configuration {
    */
   domainName: string;
 
+  /**
+   * ESB stage name
+   */
+  esbStageName?: string;
+
 }
 
 export const configurations: { [key: string]: Configuration } = {
@@ -54,6 +59,7 @@ export const configurations: { [key: string]: Configuration } = {
     deploymentEnvironment: statics.deploymentEnvironment,
     targetEnvironment: statics.acceptanceEnvironment,
     domainName: 'accp.csp-nijmegen.nl',
+    esbStageName: 'esbAcceptance',
   },
   main: {
     branchName: 'main',
@@ -61,6 +67,7 @@ export const configurations: { [key: string]: Configuration } = {
     deploymentEnvironment: statics.deploymentEnvironment,
     targetEnvironment: statics.productionEnvironment,
     domainName: 'nijmegen.nl',
+    esbStageName: 'esbProduction',
   },
 };
 

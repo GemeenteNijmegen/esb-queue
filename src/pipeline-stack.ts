@@ -26,7 +26,7 @@ export class PipelineStack extends Stack {
     const pipeline = this.pipeline(props);
 
     // **Stages**
-    pipeline.addStage( new EsbStage(this, 'esb-stage', {
+    pipeline.addStage( new EsbStage(this, props.configuration.esbStageName??'esb-stage', {
       env: props.configuration.targetEnvironment,
       configuration: props.configuration,
     }));
