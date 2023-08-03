@@ -1,86 +1,56 @@
 import {
-  Stage,
-  StageProps,
   Stack,
   StackProps,
   Tags,
   pipelines,
 } from 'aws-cdk-lib';
-import * as cdkpipelines from 'aws-cdk-lib/pipelines';
 import { Construct } from 'constructs';
-import { esbGenericServicesStack } from './esb-generic-services-stack';
-import { esbIamStack } from './esb-iam-stack';
+import { Configurable } from './Configuration';
+import { EsbStage } from './EsbStage';
 import { statics } from './statics';
 
-export interface esbStageProps extends StageProps {
-  domainName: string;
-}
 
-class esbStage extends Stage {
-
-  constructor(scope: Construct, id: string, props: esbStageProps) {
-    super(scope, id, props);
-
-    /**
-     * Stack: esb generic services
-     */
-    const queues = new esbGenericServicesStack(this, 'esbGenericServices', props);
-
-    /**
-     * Stack: esb iam
-     * Depends on GenericServicesStack
-     */
-    const iam = new esbIamStack(this, 'esbIam');
-    iam.addDependency(queues);
-
-  }
-}
+export interface PipelineStackProps extends StackProps, Configurable{}
 
 export class PipelineStack extends Stack {
 
-  constructor(scope: Construct, id: string, props?: StackProps) {
+  branchName: string;
+
+  constructor(scope: Construct, id: string, props: PipelineStackProps) {
     super (scope, id, props);
     Tags.of(this).add('cdkManaged', 'yes');
-    Tags.of(this).add('project', 'esb');
+    Tags.of(this).add('project', statics.projectName);
 
-    /**
-     * Main repository
-     */
-    const source = pipelines.CodePipelineSource.connection(statics.projectRepo, 'main', {
-      connectionArn: statics.codeStarConnectionArn,
+    this.branchName = props.configuration.branchName;
+
+    const pipeline = this.pipeline(props);
+
+    // **Stages**
+    pipeline.addStage( new EsbStage(this, props.configuration.esbStageName??'esb-stage', {
+      env: props.configuration.targetEnvironment,
+      configuration: props.configuration,
+    }));
+  }
+
+  pipeline(props: PipelineStackProps): pipelines.CodePipeline {
+    const source = pipelines.CodePipelineSource.connection('GemeenteNijmegen/esb-queue', this.branchName, {
+      connectionArn: props.configuration.codeStarConnectionArn,
     });
 
-    /**
-     * Main pipeline
-     */
-    const pipeline = new cdkpipelines.CodePipeline(this, 'pipeline', {
-      pipelineName: 'esb-pipeline',
+    const pipeline = new pipelines.CodePipeline(this, `esb-pipeline-${this.branchName}`, {
+      pipelineName: `esb-${this.branchName}`,
       crossAccountKeys: true,
-      synth: new cdkpipelines.ShellStep('Synth', {
+      synth: new pipelines.ShellStep('Synth', {
         input: source,
+        env: {
+          BRANCH_NAME: this.branchName,
+        },
         commands: [
-          'yarn install --frozen-lockfile', //nodig om projen geinstalleerd te krijgen
+          'yarn install --frozen-lockfile',
           'yarn build',
         ],
       }),
     });
-
-    pipeline.addStage( new esbStage(this, 'esbAcceptance', {
-      env: {
-        account: statics.AWS_ACCOUNT_AUTH_ACCP,
-        region: 'eu-west-1',
-      },
-      domainName: 'accp.csp-nijmegen.nl',
-    }),
-    );
-
-    pipeline.addStage( new esbStage(this, 'esbProduction', {
-      env: {
-        account: statics.AWS_ACCCOUNT_AUTH_PROD,
-        region: 'eu-west-1',
-      },
-      domainName: 'nijmegen.nl',
-    }),
-    );
+    return pipeline;
   }
 }
