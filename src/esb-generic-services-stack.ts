@@ -70,7 +70,7 @@ export class esbGenericServicesStack extends core.Stack {
     });
 
     new ssm.StringParameter(this, 'esb-eform-submissions-queue-arn', {
-      parameterName: '/cdk/esb/queue/arn',
+      parameterName: statics.ssmName_esbSqsArn,
       stringValue: eformSqs.queueArn,
     });
 
