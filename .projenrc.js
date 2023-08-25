@@ -11,6 +11,7 @@ const project = new GemeenteNijmegenCdkApp({
   name: 'esb-queue',
   deps: [
     '@gemeentenijmegen/modules-projen',
+    '@gemeentenijmegen/aws-constructs',
   ],
   enableCfnLintOnGithub: true,
   enableCfnDiffWorkflow: false,

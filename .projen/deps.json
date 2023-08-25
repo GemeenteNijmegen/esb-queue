@@ -85,6 +85,10 @@
       "type": "build"
     },
     {
+      "name": "@gemeentenijmegen/aws-constructs",
+      "type": "runtime"
+    },
+    {
       "name": "@gemeentenijmegen/modules-projen",
       "type": "runtime"
     },
