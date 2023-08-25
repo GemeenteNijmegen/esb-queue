@@ -2,12 +2,12 @@ import * as core from 'aws-cdk-lib';
 import * as cloudwatch from 'aws-cdk-lib/aws-cloudwatch';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as kms from 'aws-cdk-lib/aws-kms';
-import * as sns from 'aws-cdk-lib/aws-sns';
 import * as sqs from 'aws-cdk-lib/aws-sqs';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
 import { Construct } from 'constructs';
 import { Configurable } from './Configuration';
 import { setupEsfNotificationMail } from './esf-mail/esf-mail-notification';
+import { statics } from './statics';
 
 export interface esbGenericServicesStackProps extends core.StackProps, Configurable {}
 
@@ -43,7 +43,9 @@ export class esbGenericServicesStack extends core.Stack {
     /**
      * Sns Topic from eform project: eform submissions sns topic.
      */
-    const eformSubmissionsSnsTopic = sns.Topic.fromTopicArn(this, 'eform-submissions-sns-topic', ssm.StringParameter.valueForStringParameter(this, '/cdk/eform/SNSsubmissionsArn'));
+    const region = core.Stack.of(this).region;
+    const account = core.Stack.of(this).account;
+    const eformSubmissionsSnsTopicArn = `arn:aws:sns:${region}:${account}:${statics.eformSubmissionsSnsTopicName}`
 
     /**
      * Sqs Dead-Letter Queue: receives 'failed' messages to the esb eform submissions queue.
@@ -82,7 +84,7 @@ export class esbGenericServicesStack extends core.Stack {
           effect: iam.Effect.ALLOW,
           conditions: {
             ArnEquals: {
-              'aws:SourceArn': eformSubmissionsSnsTopic.topicArn,
+              'aws:SourceArn': eformSubmissionsSnsTopicArn,
             },
           },
           principals: [

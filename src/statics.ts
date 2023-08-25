@@ -16,6 +16,9 @@ export class statics {
 
   static readonly projectName: string = 'esb-queue';
 
+
+  static readonly eformSubmissionsSnsTopicName = 'eform-submissions';
+
   /**
    * Pipeline values
    */
