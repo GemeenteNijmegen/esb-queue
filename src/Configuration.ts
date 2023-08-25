@@ -58,6 +58,7 @@ export const configurations: { [key: string]: Configuration } = {
     deploymentEnvironment: statics.gnBuildEnvironment,
     targetEnvironment: statics.gnWebformsDevEnvironment,
     domainName: 'dev.csp-nijmegen.nl',
+    isInNewLandingzone: true,
   },
   'acceptance-new-lz': {
     branchName: 'acceptance-new-lz',
@@ -65,6 +66,7 @@ export const configurations: { [key: string]: Configuration } = {
     deploymentEnvironment: statics.gnBuildEnvironment,
     targetEnvironment: statics.gnWebformsAccpEnvironment,
     domainName: 'accp.csp-nijmegen.nl',
+    isInNewLandingzone: true,
   },
   'main-new-lz': {
     branchName: 'main-new-lz',
@@ -72,6 +74,7 @@ export const configurations: { [key: string]: Configuration } = {
     deploymentEnvironment: statics.gnBuildEnvironment,
     targetEnvironment: statics.gnWebformsProdEnvironment,
     domainName: 'nijmegen.nl',
+    isInNewLandingzone: true,
   },
   development: {
     branchName: 'development',
