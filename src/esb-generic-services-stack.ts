@@ -45,7 +45,7 @@ export class esbGenericServicesStack extends core.Stack {
      */
     const region = core.Stack.of(this).region;
     const account = core.Stack.of(this).account;
-    const eformSubmissionsSnsTopicArn = `arn:aws:sns:${region}:${account}:${statics.eformSubmissionsSnsTopicName}`
+    const eformSubmissionsSnsTopicArn = `arn:aws:sns:${region}:${account}:${statics.eformSubmissionsSnsTopicName}`;
 
     /**
      * Sqs Dead-Letter Queue: receives 'failed' messages to the esb eform submissions queue.

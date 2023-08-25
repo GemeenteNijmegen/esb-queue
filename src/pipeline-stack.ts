@@ -1,3 +1,4 @@
+import { PermissionsBoundaryAspect } from '@gemeentenijmegen/aws-constructs';
 import {
   Aspects,
   Stack,
@@ -9,7 +10,6 @@ import { Construct } from 'constructs';
 import { Configurable } from './Configuration';
 import { EsbStage } from './EsbStage';
 import { statics } from './statics';
-import { PermissionsBoundaryAspect } from '@gemeentenijmegen/aws-constructs';
 
 
 export interface PipelineStackProps extends StackProps, Configurable{}
@@ -22,7 +22,7 @@ export class PipelineStack extends Stack {
     super (scope, id, props);
     Tags.of(this).add('cdkManaged', 'yes');
     Tags.of(this).add('project', statics.projectName);
-    if(props.configuration.isInNewLandingzone){
+    if (props.configuration.isInNewLandingzone) {
       Aspects.of(this).add(new PermissionsBoundaryAspect());
     }
 

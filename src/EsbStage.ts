@@ -1,10 +1,10 @@
+import { PermissionsBoundaryAspect } from '@gemeentenijmegen/aws-constructs';
 import { Aspects, Stage, StageProps, Tags } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { Configurable } from './Configuration';
 import { esbGenericServicesStack } from './esb-generic-services-stack';
 import { EsbIamStack } from './esb-iam-stack';
 import { statics } from './statics';
-import { PermissionsBoundaryAspect } from '@gemeentenijmegen/aws-constructs';
 
 export interface EsbStageProps extends StageProps, Configurable {}
 
@@ -14,7 +14,7 @@ export class EsbStage extends Stage {
     super(scope, id, props);
     Tags.of(this).add('cdkManaged', 'yes');
     Tags.of(this).add('project', statics.projectName);
-    if(props.configuration.isInNewLandingzone){
+    if (props.configuration.isInNewLandingzone) {
       Aspects.of(this).add(new PermissionsBoundaryAspect());
     }
 

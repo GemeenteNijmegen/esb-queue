@@ -44,7 +44,7 @@ export interface Configuration {
   esbStageName?: string;
 
   /**
-   * Flag to indicate that the workload is 
+   * Flag to indicate that the workload is
    * deployed to the new landingzone
    */
   isInNewLandingzone?: boolean;
@@ -76,14 +76,14 @@ export const configurations: { [key: string]: Configuration } = {
     domainName: 'nijmegen.nl',
     isInNewLandingzone: true,
   },
-  development: {
+  'development': {
     branchName: 'development',
     codeStarConnectionArn: statics.codeStarConnectionArn,
     deploymentEnvironment: statics.deploymentEnvironment,
     targetEnvironment: statics.sandboxEnvironment,
     domainName: 'dev.csp-nijmegen.nl',
   },
-  acceptance: {
+  'acceptance': {
     branchName: 'acceptance',
     codeStarConnectionArn: statics.codeStarConnectionArn,
     deploymentEnvironment: statics.deploymentEnvironment,
@@ -91,7 +91,7 @@ export const configurations: { [key: string]: Configuration } = {
     domainName: 'accp.csp-nijmegen.nl',
     esbStageName: 'esbAcceptance',
   },
-  main: {
+  'main': {
     branchName: 'main',
     codeStarConnectionArn: statics.codeStarConnectionArn,
     deploymentEnvironment: statics.deploymentEnvironment,

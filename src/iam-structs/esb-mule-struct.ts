@@ -15,7 +15,7 @@ export class esbIAMMule extends Construct {
     super(scope, id);
 
     let esbSqsMuleRole = undefined;
-    if(props.isInNewLandingzone){
+    if (props.isInNewLandingzone) {
       // In the new lz the iam user lives in the account
       const user = new iam.User(this, 'esb-sqs-mule-user');
       const key = new iam.AccessKey(this, 'esb-sqs-mule-user-key', { user });
