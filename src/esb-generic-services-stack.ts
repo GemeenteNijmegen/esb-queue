@@ -15,8 +15,6 @@ export class esbGenericServicesStack extends core.Stack {
 
   constructor(scope: Construct, id: string, props: esbGenericServicesStackProps) {
     super(scope, id, props);
-    core.Tags.of(this).add('cdkManaged', 'yes');
-    core.Tags.of(this).add('Project', 'esb');
 
     /**
      * Custom KMS key for esb eform sqs connection.

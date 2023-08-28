@@ -10,9 +10,7 @@ export interface EsbIamStackProps extends StackProps, Configurable { }
 export class EsbIamStack extends core.Stack {
   constructor(scope: Construct, id: string, props: EsbIamStackProps) {
     super(scope, id, props);
-    core.Tags.of(this).add('cdkManaged', 'yes');
-    core.Tags.of(this).add('Project', 'esb');
-
+    
     const esbSqsArn = ssm.StringParameter.valueForStringParameter(this, statics.ssmName_esbSqsArn);
     const esfMailNotificationSqsArn = ssm.StringParameter.valueForStringParameter(this, statics.ssmName_esfMailNotificationArn);
 
