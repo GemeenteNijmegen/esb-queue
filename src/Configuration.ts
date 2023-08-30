@@ -57,7 +57,7 @@ export const configurations: { [key: string]: Configuration } = {
     codeStarConnectionArn: statics.gnBuildCodeStarConnectionArn,
     deploymentEnvironment: statics.gnBuildEnvironment,
     targetEnvironment: statics.gnWebformsDevEnvironment,
-    domainName: 'dev.csp-nijmegen.nl',
+    domainName: 'webforms-dev.csp-nijmegen.nl',
     isInNewLandingzone: true,
   },
   'acceptance-new-lz': {
@@ -65,7 +65,7 @@ export const configurations: { [key: string]: Configuration } = {
     codeStarConnectionArn: statics.gnBuildCodeStarConnectionArn,
     deploymentEnvironment: statics.gnBuildEnvironment,
     targetEnvironment: statics.gnWebformsAccpEnvironment,
-    domainName: 'accp.csp-nijmegen.nl',
+    domainName: 'webforms-accp.csp-nijmegen.nl',
     isInNewLandingzone: true,
   },
   'main-new-lz': {
