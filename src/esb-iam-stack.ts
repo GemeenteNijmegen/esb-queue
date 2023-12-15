@@ -21,6 +21,7 @@ export class EsbIamStack extends core.Stack {
       iamAccountPrincipal: statics.AWS_ACCOUNT_IAM,
       esbSqsArn: esbSqsArn,
       esfMailNotificationSqsArn: esfMailNotificationSqsArn,
+      isInNewLandingzone: props.configuration.isInNewLandingzone,
     });
   }
 }
