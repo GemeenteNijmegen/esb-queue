@@ -25,7 +25,7 @@ export class esbIAMMule extends Construct {
       //       as webforms already has a dependency on this project do not make it circular!
       esbSqsMuleRole = new iam.Role(this, 'esb-sqs-mule-role', {
         roleName: 'esb-sqs-mule',
-        assumedBy: new iam.PrincipalWithConditions(new iam.AccountPrincipal(accountId), {
+        assumedBy: new iam.PrincipalWithConditions(new iam.AnyPrincipal(), {
           ArnEquals: {
             'aws:PrincipalArn': webformsEsbUserArn,
           },
