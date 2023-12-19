@@ -16,6 +16,9 @@ export class statics {
 
   static readonly projectName: string = 'esb-queue';
 
+  // User in the webformulieren project has a name
+  static readonly WEBFORMS_ESB_USER_NAME = 'webforms-esb-user';
+
 
   static readonly eformSubmissionsSnsTopicName = 'eform-submissions';
 
