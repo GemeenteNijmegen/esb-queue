@@ -1,7 +1,7 @@
 import * as core from 'aws-cdk-lib';
 import * as iam from 'aws-cdk-lib/aws-iam';
-import { Secret } from 'aws-cdk-lib/aws-secretsmanager';
 import { Construct } from 'constructs';
+import { statics } from '../statics';
 
 export interface esbIAMMuleProps extends core.StackProps {
   esbSqsArn: string;
@@ -16,18 +16,23 @@ export class esbIAMMule extends Construct {
 
     let esbSqsMuleRole = undefined;
     if (props.isInNewLandingzone) {
-      // In the new lz the iam user lives in the account
-      const user = new iam.User(this, 'esb-sqs-mule-user');
-      const key = new iam.AccessKey(this, 'esb-sqs-mule-user-key', { user });
-      new Secret(this, 'esb-sqs-mule-user-secret', {
-        description: 'Secret key for ESB mule user to poll the esb-queue',
-        secretStringValue: key.secretAccessKey,
-      });
+
+      // Allow a user from webformulieren access as well so that the ESB only has to use one user.
+      const accountId = core.Stack.of(this).account;
+      const webformsEsbUserArn = `arn:aws:iam::${accountId}:user/${statics.WEBFORMS_ESB_USER_NAME}`;
+
+      // Note: uses condition to prevent hard dependency on webforms project (keep this project deployable without webforms)
+      //       as webforms already has a dependency on this project do not make it circular!
       esbSqsMuleRole = new iam.Role(this, 'esb-sqs-mule-role', {
         roleName: 'esb-sqs-mule',
-        assumedBy: user,
+        assumedBy: new iam.PrincipalWithConditions(new iam.AccountPrincipal(accountId), {
+          ArnEquals: {
+            'aws:PrincipalArn': webformsEsbUserArn,
+          },
+        }),
         description: 'assumable role for Mule to get access to sqs queue',
       });
+
     } else {
       // Role: wordt gebruikt door system accounts (Mule), dus geen MFA eisen
       esbSqsMuleRole = new iam.Role(this, 'esb-sqs-mule-role', {
