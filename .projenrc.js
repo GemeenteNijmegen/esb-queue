@@ -2,10 +2,10 @@ const { GemeenteNijmegenCdkApp } = require('@gemeentenijmegen/modules-projen');
 
 const project = new GemeenteNijmegenCdkApp({
   cdkVersion: '2.35.0',
-  defaultReleaseBranch: 'main',
+  defaultReleaseBranch: 'main-new-lz',
   depsUpgradeOptions: { // Override from GemeenteNijmegenCdkApp as we only use the main branch
     workflowOptions: {
-      branches: ['main'],
+      branches: ['main-new-lz'],
     },
   },
   name: 'esb-queue',

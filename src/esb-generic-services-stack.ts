@@ -110,7 +110,7 @@ export class esbGenericServicesStack extends core.Stack {
       threshold: 0,
       evaluationPeriods: 1,
       comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_THRESHOLD,
-      alarmName: 'esb-eform-sqs-dlq-alarm',
+      alarmName: 'webforms-esb-sqs-dlq-critical-lvl',
       alarmDescription: 'CloudWatch alarm that triggers when number of messages returned by calls to the ReceiveMessage action exceeds 0 on esb sqs dlq.',
     });
 

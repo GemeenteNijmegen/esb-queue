@@ -167,9 +167,9 @@
       "name": "pre-compile",
       "description": "Prepare the project for compilation"
     },
-    "release": {
-      "name": "release",
-      "description": "Prepare a release from \"main\" branch",
+    "release:main-new-lz": {
+      "name": "release:main-new-lz",
+      "description": "Prepare a release from \"main-new-lz\" branch",
       "env": {
         "RELEASE": "true",
         "MAJOR": "0"
