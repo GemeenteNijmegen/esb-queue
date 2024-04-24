@@ -43,61 +43,50 @@ export interface Configuration {
    */
   esbStageName?: string;
 
-  /**
-   * Flag to indicate that the workload is
-   * deployed to the new landingzone
-   */
-  isInNewLandingzone?: boolean;
-
 }
 
 export const configurations: { [key: string]: Configuration } = {
   'development-new-lz': {
-    branchName: 'development-new-lz',
+    branchName: 'development',
     codeStarConnectionArn: statics.gnBuildCodeStarConnectionArn,
     deploymentEnvironment: statics.gnBuildEnvironment,
     targetEnvironment: statics.gnWebformsDevEnvironment,
     domainName: 'webforms-dev.csp-nijmegen.nl',
-    isInNewLandingzone: true,
   },
   'acceptance-new-lz': {
-    branchName: 'acceptance-new-lz',
+    branchName: 'acceptance',
     codeStarConnectionArn: statics.gnBuildCodeStarConnectionArn,
     deploymentEnvironment: statics.gnBuildEnvironment,
     targetEnvironment: statics.gnWebformsAccpEnvironment,
     domainName: 'webforms-accp.csp-nijmegen.nl',
-    isInNewLandingzone: true,
   },
   'main-new-lz': {
-    branchName: 'main-new-lz',
+    branchName: 'main',
     codeStarConnectionArn: statics.gnBuildCodeStarConnectionArn,
     deploymentEnvironment: statics.gnBuildEnvironment,
     targetEnvironment: statics.gnWebformsProdEnvironment,
     domainName: 'nijmegen.nl',
-    isInNewLandingzone: true,
   },
   'development': {
     branchName: 'development',
-    codeStarConnectionArn: statics.codeStarConnectionArn,
-    deploymentEnvironment: statics.deploymentEnvironment,
-    targetEnvironment: statics.sandboxEnvironment,
-    domainName: 'dev.csp-nijmegen.nl',
+    codeStarConnectionArn: statics.gnBuildCodeStarConnectionArn,
+    deploymentEnvironment: statics.gnBuildEnvironment,
+    targetEnvironment: statics.gnWebformsDevEnvironment,
+    domainName: 'webforms-dev.csp-nijmegen.nl',
   },
   'acceptance': {
     branchName: 'acceptance',
-    codeStarConnectionArn: statics.codeStarConnectionArn,
-    deploymentEnvironment: statics.deploymentEnvironment,
-    targetEnvironment: statics.acceptanceEnvironment,
-    domainName: 'accp.csp-nijmegen.nl',
-    esbStageName: 'esbAcceptance',
+    codeStarConnectionArn: statics.gnBuildCodeStarConnectionArn,
+    deploymentEnvironment: statics.gnBuildEnvironment,
+    targetEnvironment: statics.gnWebformsAccpEnvironment,
+    domainName: 'webforms-accp.csp-nijmegen.nl',
   },
   'main': {
     branchName: 'main',
-    codeStarConnectionArn: statics.codeStarConnectionArn,
-    deploymentEnvironment: statics.deploymentEnvironment,
-    targetEnvironment: statics.productionEnvironment,
+    codeStarConnectionArn: statics.gnBuildCodeStarConnectionArn,
+    deploymentEnvironment: statics.gnBuildEnvironment,
+    targetEnvironment: statics.gnWebformsProdEnvironment,
     domainName: 'nijmegen.nl',
-    esbStageName: 'esbProduction',
   },
 };
 
