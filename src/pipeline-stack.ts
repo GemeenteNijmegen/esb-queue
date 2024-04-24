@@ -22,16 +22,14 @@ export class PipelineStack extends Stack {
     super (scope, id, props);
     Tags.of(this).add('cdkManaged', 'yes');
     Tags.of(this).add('project', statics.projectName);
-    if (props.configuration.isInNewLandingzone) {
-      Aspects.of(this).add(new PermissionsBoundaryAspect());
-    }
+    Aspects.of(this).add(new PermissionsBoundaryAspect());
 
     this.branchName = props.configuration.branchName;
 
     const pipeline = this.pipeline(props);
 
     // **Stages**
-    pipeline.addStage( new EsbStage(this, props.configuration.esbStageName??'esb-stage', {
+    pipeline.addStage( new EsbStage(this, 'esb-stage', {
       env: props.configuration.targetEnvironment,
       configuration: props.configuration,
     }));

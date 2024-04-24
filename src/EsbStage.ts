@@ -14,9 +14,7 @@ export class EsbStage extends Stage {
     super(scope, id, props);
     Tags.of(this).add('cdkManaged', 'yes');
     Tags.of(this).add('project', statics.projectName);
-    if (props.configuration.isInNewLandingzone) {
-      Aspects.of(this).add(new PermissionsBoundaryAspect());
-    }
+    Aspects.of(this).add(new PermissionsBoundaryAspect());
 
     /**
      * Stack: esb generic services
