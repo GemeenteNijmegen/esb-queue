@@ -38,50 +38,24 @@ export interface Configuration {
    */
   domainName: string;
 
-  /**
-   * ESB stage name
-   */
-  esbStageName?: string;
-
 }
 
 export const configurations: { [key: string]: Configuration } = {
-  'development-new-lz': {
+  development: {
     branchName: 'development',
     codeStarConnectionArn: statics.gnBuildCodeStarConnectionArn,
     deploymentEnvironment: statics.gnBuildEnvironment,
     targetEnvironment: statics.gnWebformsDevEnvironment,
     domainName: 'webforms-dev.csp-nijmegen.nl',
   },
-  'acceptance-new-lz': {
+  acceptance: {
     branchName: 'acceptance',
     codeStarConnectionArn: statics.gnBuildCodeStarConnectionArn,
     deploymentEnvironment: statics.gnBuildEnvironment,
     targetEnvironment: statics.gnWebformsAccpEnvironment,
     domainName: 'webforms-accp.csp-nijmegen.nl',
   },
-  'main-new-lz': {
-    branchName: 'main',
-    codeStarConnectionArn: statics.gnBuildCodeStarConnectionArn,
-    deploymentEnvironment: statics.gnBuildEnvironment,
-    targetEnvironment: statics.gnWebformsProdEnvironment,
-    domainName: 'nijmegen.nl',
-  },
-  'development': {
-    branchName: 'development',
-    codeStarConnectionArn: statics.gnBuildCodeStarConnectionArn,
-    deploymentEnvironment: statics.gnBuildEnvironment,
-    targetEnvironment: statics.gnWebformsDevEnvironment,
-    domainName: 'webforms-dev.csp-nijmegen.nl',
-  },
-  'acceptance': {
-    branchName: 'acceptance',
-    codeStarConnectionArn: statics.gnBuildCodeStarConnectionArn,
-    deploymentEnvironment: statics.gnBuildEnvironment,
-    targetEnvironment: statics.gnWebformsAccpEnvironment,
-    domainName: 'webforms-accp.csp-nijmegen.nl',
-  },
-  'main': {
+  main: {
     branchName: 'main',
     codeStarConnectionArn: statics.gnBuildCodeStarConnectionArn,
     deploymentEnvironment: statics.gnBuildEnvironment,
