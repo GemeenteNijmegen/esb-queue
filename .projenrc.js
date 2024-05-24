@@ -1,21 +1,18 @@
-const { GemeenteNijmegenCdkApp } = require('@gemeentenijmegen/modules-projen');
+const { GemeenteNijmegenCdkApp } = require('@gemeentenijmegen/projen-project-type');
 
 const project = new GemeenteNijmegenCdkApp({
   cdkVersion: '2.35.0',
-  defaultReleaseBranch: 'main-new-lz',
+  defaultReleaseBranch: 'main',
   depsUpgradeOptions: { // Override from GemeenteNijmegenCdkApp as we only use the main branch
     workflowOptions: {
-      branches: ['main-new-lz'],
+      branches: ['development, acceptance'],
     },
   },
   name: 'esb-queue',
   deps: [
-    '@gemeentenijmegen/modules-projen',
+    '@gemeentenijmegen/projen-project-type',
     '@gemeentenijmegen/aws-constructs',
   ],
-  enableCfnLintOnGithub: true,
-  enableCfnDiffWorkflow: false,
-  enableEmergencyProcedure: false,
 });
 
 project.synth();
