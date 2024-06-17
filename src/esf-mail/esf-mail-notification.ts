@@ -1,3 +1,4 @@
+import { DeadLetterQueue, ErrorMonitoringAlarm } from '@gemeentenijmegen/aws-constructs';
 import * as core from 'aws-cdk-lib';
 import { RemovalPolicy } from 'aws-cdk-lib';
 import * as iam from 'aws-cdk-lib/aws-iam';
@@ -8,6 +9,7 @@ import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as sqs from 'aws-cdk-lib/aws-sqs';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
 import { Construct } from 'constructs';
+import { Configuration } from '../Configuration';
 import { statics } from '../statics';
 
 /**
@@ -16,11 +18,12 @@ import { statics } from '../statics';
 export function setupEsfNotificationMail(
   scope: Construct,
   domainName: string,
+  configuration: Configuration,
 ) {
 
   /**
-     * Bucket to backup all SES messages
-     */
+   * Bucket to backup all SES messages
+   */
   const backupBucket = new s3.Bucket(scope, 'ses-mail-s3-backup-bucket', {
     removalPolicy: RemovalPolicy.DESTROY,
     lifecycleRules: [
@@ -43,7 +46,7 @@ export function setupEsfNotificationMail(
     handler: 'index.lambda_handler',
     code: lambda.Code.fromAsset('src/esf-mail/esf-mail-notification-lambda'),
     logRetention: RetentionDays.SIX_MONTHS,
-    timeout: core.Duration.seconds(30),
+    timeout: core.Duration.minutes(10), // This is async so it doesn't realy matter as long as it is plenty to call SES for each email
     environment: {
       SENDER_MAIL_ADRESS: 'dsf@' + domainName,
       BACKUP_BUCKET_NAME: backupBucket.bucketName,
@@ -60,12 +63,24 @@ export function setupEsfNotificationMail(
     ],
   });
 
+  new ErrorMonitoringAlarm(scope, 'esf-mail-notificaiton-errors-alarm', {
+    criticality: configuration.criticality.toString(),
+    lambda: esfMailNotificationLambda,
+  });
+
   /**
    * Sqs Dead-Letter Queue: receives 'failed' messages from the esf mail notification queue.
    */
   const esfMailNotificationDLQ = new sqs.Queue(scope, 'esf-mail-notification-dlq-fifo', {
     encryption: sqs.QueueEncryption.KMS_MANAGED,
-    fifo: true, // Must be same type of queue as source
+    fifo: true,
+  });
+
+  new DeadLetterQueue(scope, 'dlq-alarm', {
+    dlq: esfMailNotificationDLQ,
+    alarm: true,
+    alarmName: 'esf-emails-alarm',
+    alarmDescription: 'Failed to send ESF emails',
   });
 
   /**

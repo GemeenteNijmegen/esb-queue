@@ -21,16 +21,23 @@ def lambda_handler(event, context):
         client = boto3.client('ses',region_name=aws_region)
         s3 = boto3.client('s3')
         sender = f"Formulier Notificatie <{senderMailAdress}>"
-        data = handler.get_data(msg)
-        metadata = handler.get_metadata(msg)
 
+        # From metadata
+        metadata = handler.get_metadata(msg)
+        correlationId = metadata.get('correlationId')
+
+        # Process entries from the esb
+        data = handler.get_data(msg)
         if (data != None and metadata != None and len(data) > 0):
             for value in data:
                 mail_address = value.get('e-mailadres')
+                inleverdatum = value.get('inleverdatum')
+                draaidatum = value.get('draaidatum')
+                klantnummer = value.get('klantnummer')
                 print('Trying to send mail to: ' + mail_address)
-                message = handler.create_email_message(value.get('inleverdatum'), value.get('draaidatum'))
+                message = handler.create_email_message(inleverdatum, draaidatum)
                 recipients = [mail_address]
-                handler.send_message(client, recipients, message, sender, s3, value.get('klantnummer'), metadata.get('correlationId'), backupBucketName)
+                handler.send_message(client, recipients, message, sender, s3, klantnummer, correlationId, backupBucketName)
     
     # Throw error if first part fails
     except ClientError as e:
