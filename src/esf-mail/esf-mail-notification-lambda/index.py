@@ -1,8 +1,11 @@
 import os
 import boto3
 from botocore.exceptions import ClientError
-
+import logging
 import handler
+
+logger = logging.getLogger()
+logger.setLevel("INFO")
 
 def lambda_handler(event, context):
     try:
@@ -34,15 +37,16 @@ def lambda_handler(event, context):
                 inleverdatum = value.get('inleverdatum')
                 draaidatum = value.get('draaidatum')
                 klantnummer = value.get('klantnummer')
-                print('Trying to send mail to: ' + mail_address)
+                logger.info('Trying to send mail to: ' + mail_address)
                 message = handler.create_email_message(inleverdatum, draaidatum)
                 recipients = [mail_address]
                 handler.send_message(client, recipients, message, sender, s3, klantnummer, correlationId, backupBucketName)
     
     # Throw error if first part fails
-    except ClientError as e:
-        print(e.response['Error']['Message'])
     except KeyError as e:
         print('KeyError - reason "%s"' % str(e))
+        logger.exception(e)
+    except Exception as e:
+        logger.exception(e)
     else:
-        print('Function completed!')
+        logger.info('Function completed!')
