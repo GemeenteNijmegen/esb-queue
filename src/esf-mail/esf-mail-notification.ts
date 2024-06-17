@@ -17,9 +17,10 @@ import { statics } from '../statics';
  */
 export function setupEsfNotificationMail(
   scope: Construct,
-  domainName: string,
   configuration: Configuration,
 ) {
+
+  const domainName = configuration.domainName;
 
   /**
    * Bucket to backup all SES messages
