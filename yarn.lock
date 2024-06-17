@@ -468,10 +468,10 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.57.0.tgz#a5417ae8427873f1dd08b70b3574b453e67b5f7f"
   integrity sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==
 
-"@gemeentenijmegen/aws-constructs@^0.0.12":
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/@gemeentenijmegen/aws-constructs/-/aws-constructs-0.0.12.tgz#b4f9513d2c98e5db3eb6f146cf7f88c98daffe45"
-  integrity sha512-I1s0R7DjWAVKnqVkQAT2WPXhsrZxf9zSK740k9GyeEXLjkwmK26OdpaIb7AFN6u4KzngjXwuvnhF1T1xVaqEtA==
+"@gemeentenijmegen/aws-constructs@^0.0.14":
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/@gemeentenijmegen/aws-constructs/-/aws-constructs-0.0.14.tgz#53fb7ef41462c70f57ceedc068476c4fe94167ed"
+  integrity sha512-2XcOAqvDjURF1sll1Y1jXs4ILsHslvcsC8lZ6NevTLcp+V6UeP8dMo1Z4K6axCzCgRNHLH5+TQrkBP02m6KeJg==
 
 "@gemeentenijmegen/projen-project-type@^1.7.1":
   version "1.7.1"
@@ -904,16 +904,16 @@
   integrity sha512-hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==
 
 "@types/node@*":
-  version "20.14.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.2.tgz#a5f4d2bcb4b6a87bffcaa717718c5a0f208f4a18"
-  integrity sha512-xyu6WAMVwv6AKFLB+e/7ySZVr/0zLCzOa7rSpq6jNwpqOrUbcACDWC+53d4n2QHOnDou0fbIsg8wZu/sxrnI4Q==
+  version "20.14.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.3.tgz#7a9a5d009b0861e7f337166dc435dbfd758db92d"
+  integrity sha512-Nuzqa6WAxeGnve6SXqiPAM9rA++VQs+iLZ1DDd56y0gdvygSZlQvZuvdFPR3yLqkVxPu4WrO02iDEyH1g+wazw==
   dependencies:
     undici-types "~5.26.4"
 
 "@types/node@^18":
-  version "18.19.34"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.19.34.tgz#c3fae2bbbdb94b4a52fe2d229d0dccce02ef3d27"
-  integrity sha512-eXF4pfBNV5DAMKGbI02NnDtWrQ40hAN558/2vvS4gMpMIxaf6JmD7YjnZbq0Q9TDSSkKBamime8ewRoomHdt4g==
+  version "18.19.35"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.19.35.tgz#d7a5e97455327a08152ed271df0268d9384e44e9"
+  integrity sha512-n+WiqynRake4DDX2tPh4NTxu4dA7BgmsaGKMRc/htuPZBi7w9FkVgSOWU/+92vVEYMz3QOWUr2AwHev9X2XiTg==
   dependencies:
     undici-types "~5.26.4"
 

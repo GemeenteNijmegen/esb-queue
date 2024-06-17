@@ -67,6 +67,11 @@ export function setupEsfNotificationMail(
   new ErrorMonitoringAlarm(scope, 'esf-mail-notificaiton-errors-alarm', {
     criticality: configuration.criticality.toString(),
     lambda: esfMailNotificationLambda,
+    errorRateProps: {
+      alarmThreshold: 1,
+      alarmEvaluationPeriods: 1,
+      alarmEvaluationPeriod: core.Duration.minutes(15),
+    },
   });
 
   /**
