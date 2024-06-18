@@ -1,3 +1,4 @@
+import { Criticality } from '@gemeentenijmegen/aws-constructs';
 import { statics } from './statics';
 
 /**
@@ -38,6 +39,10 @@ export interface Configuration {
    */
   domainName: string;
 
+  /**
+   * Criticality for the alarms in this branch
+   */
+  readonly criticality: Criticality;
 }
 
 export const configurations: { [key: string]: Configuration } = {
@@ -47,6 +52,7 @@ export const configurations: { [key: string]: Configuration } = {
     deploymentEnvironment: statics.gnBuildEnvironment,
     targetEnvironment: statics.gnWebformsDevEnvironment,
     domainName: 'webforms-dev.csp-nijmegen.nl',
+    criticality: new Criticality('medium'),
   },
   acceptance: {
     branchName: 'acceptance',
@@ -54,6 +60,7 @@ export const configurations: { [key: string]: Configuration } = {
     deploymentEnvironment: statics.gnBuildEnvironment,
     targetEnvironment: statics.gnWebformsAccpEnvironment,
     domainName: 'webforms-accp.csp-nijmegen.nl',
+    criticality: new Criticality('medium'),
   },
   main: {
     branchName: 'main',
@@ -61,6 +68,7 @@ export const configurations: { [key: string]: Configuration } = {
     deploymentEnvironment: statics.gnBuildEnvironment,
     targetEnvironment: statics.gnWebformsProdEnvironment,
     domainName: 'nijmegen.nl',
+    criticality: new Criticality('critical'),
   },
 };
 
