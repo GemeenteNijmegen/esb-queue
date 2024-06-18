@@ -1,7 +1,10 @@
 import json
-import boto3
-import os
 from botocore.exceptions import ClientError
+import logging
+
+logger = logging.getLogger()
+logger.setLevel("INFO")
+
 
 def get_encoded_msg(event):
     """Get the (JSON) message as a python object from the SQS message,
@@ -52,12 +55,11 @@ def backup_message(s3, messageId, klantnummer, correlationId, backupBucketName):
             Key=messageId,
             ContentType='application/json'
         )
-    except ClientError as e:
-        print(e.response['Error']['Message'])
-        return e
+    except Exception as e:
+        logger.error(e)
     else:
-        print("Message backup to S3 using key:")
-        print(messageId)
+        logger.info("Message backup to S3 using key:")
+        logger.info(messageId)
 
 
 def send_message(client, recipients, message, sender, s3, klantnummer, correlationId, backupBucketName):
@@ -74,22 +76,21 @@ def send_message(client, recipients, message, sender, s3, klantnummer, correlati
             Source=sender,
         )
         if (response != None):
-            print("Message backup to S3. S3 Object ID:"),
-            print(response['MessageId'])
+            logger.info("Message backup to S3. S3 Object ID:"),
+            logger.info(response['MessageId'])
             backup_message(s3, response['MessageId'], klantnummer, correlationId, backupBucketName)
     # Throw error if mail fails
-    except ClientError as e:
-        print(e.response['Error']['Message'])
-        return e
     except KeyError as e:
-        print('KeyError - reason "%s"' % str(e))
-        return e
+        logger.error('KeyError - reason "%s"' % str(e))
+        logger.exception(e)
+    except Exception as e:
+        logger.exception(e)
     else:
         if (response != None):
-            print("Email sent! Message ID:"),
-            print(response['MessageId'])
+            logger.info("Email sent! Message ID:"),
+            logger.info(response['MessageId'])
         else:
-            print("No email send, recipients empty.")
+            logger.info("No email send, recipients empty.")
 
 def create_email_message(inleverdatum, draaidatum):
     """ Create the email body and subject in a format suitable for use

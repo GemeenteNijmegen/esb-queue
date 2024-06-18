@@ -118,7 +118,7 @@ export class esbGenericServicesStack extends core.Stack {
     /**
      * Configure the ESF notification mail.
      */
-    setupEsfNotificationMail(this, props.configuration.domainName);
+    setupEsfNotificationMail(this, props.configuration);
 
   }
 }
