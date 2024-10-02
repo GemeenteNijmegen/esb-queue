@@ -87,6 +87,7 @@ export function setupEsfNotificationMail(
     alarm: true,
     alarmName: 'esf-emails-alarm',
     alarmDescription: 'Failed to send ESF emails',
+    alarmCriticality: configuration.criticality,
   });
 
   /**
