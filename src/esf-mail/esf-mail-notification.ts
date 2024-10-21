@@ -47,7 +47,7 @@ export function setupEsfNotificationMail(
     handler: 'index.lambda_handler',
     code: lambda.Code.fromAsset('src/esf-mail/esf-mail-notification-lambda'),
     logRetention: RetentionDays.SIX_MONTHS,
-    timeout: core.Duration.minutes(1), // This is async so it doesn't realy matter as long as it is plenty to call SES for each email
+    timeout: core.Duration.minutes(10), // This is async so it doesn't realy matter as long as it is plenty to call SES for each email
     environment: {
       SENDER_MAIL_ADRESS: 'dsf@' + domainName,
       BACKUP_BUCKET_NAME: backupBucket.bucketName,
@@ -96,7 +96,7 @@ export function setupEsfNotificationMail(
   const esfMailNotificationSQSqueue = new sqs.Queue(scope, 'esf-mail-notification-sqs-fifo', {
     encryption: sqs.QueueEncryption.KMS_MANAGED,
     fifo: true, // To enable exactly-once processing
-    visibilityTimeout: core.Duration.minutes(1),
+    visibilityTimeout: core.Duration.minutes(11), // Must be > function timeout
     deadLetterQueue: {
       queue: esfMailNotificationDLQ,
       maxReceiveCount: 1,
