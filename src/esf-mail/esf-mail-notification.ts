@@ -96,6 +96,7 @@ export function setupEsfNotificationMail(
   const esfMailNotificationSQSqueue = new sqs.Queue(scope, 'esf-mail-notification-sqs-fifo', {
     encryption: sqs.QueueEncryption.KMS_MANAGED,
     fifo: true, // To enable exactly-once processing
+    visibilityTimeout: core.Duration.minutes(11), // Must be > function timeout
     deadLetterQueue: {
       queue: esfMailNotificationDLQ,
       maxReceiveCount: 1,
