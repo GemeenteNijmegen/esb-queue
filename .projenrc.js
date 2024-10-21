@@ -5,7 +5,7 @@ const project = new GemeenteNijmegenCdkApp({
   defaultReleaseBranch: 'main',
   depsUpgradeOptions: { // Override from GemeenteNijmegenCdkApp as we only use the main branch
     workflowOptions: {
-      branches: ['development, acceptance'],
+      branches: ['development'],
     },
   },
   name: 'esb-queue',
