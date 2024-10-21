@@ -22,6 +22,8 @@ export class statics {
 
   static readonly eformSubmissionsSnsTopicName = 'eform-submissions';
 
+  static readonly esbRoleName = 'esb-sqs-mule';
+
   /**
    * Pipeline values
    */
