@@ -29,9 +29,29 @@ export class esbGenericServicesStack extends core.Stack {
     kmsKey.addToResourcePolicy(new iam.PolicyStatement({
       sid: 'Allow esb SQS Queue to receive messages from the eform-submissions SNS topic.',
       effect: iam.Effect.ALLOW,
-      principals: [new iam.AnyPrincipal],
+      principals: [
+        new iam.ServicePrincipal('sns.amazonaws.com'),
+      ],
       actions: [
         'kms:Encrypt',
+        'kms:Decrypt',
+        'kms:GenerateDataKey',
+      ],
+      resources: ['*'],
+      conditions: {
+        StringEquals: {
+          'aws:PrincipalAccount': core.Stack.of(this).account,
+        },
+      },
+    }));
+
+    kmsKey.addToResourcePolicy(new iam.PolicyStatement({
+      sid: 'Allow ebs role to use this key for polling',
+      effect: iam.Effect.ALLOW,
+      principals: [
+        new iam.ArnPrincipal(`arn:aws:iam::${core.Stack.of(this).account}:role/${statics.esbRoleName}`),
+      ],
+      actions: [
         'kms:Decrypt',
         'kms:GenerateDataKey',
       ],
