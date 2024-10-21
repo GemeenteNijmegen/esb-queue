@@ -17,6 +17,14 @@ export class esbGenericServicesStack extends core.Stack {
     super(scope, id, props);
 
     /**
+     * Sns Topic from eform project: eform submissions sns topic.
+     */
+    const region = core.Stack.of(this).region;
+    const account = core.Stack.of(this).account;
+    const eformSubmissionsSnsTopicArn = `arn:aws:sns:${region}:${account}:${statics.eformSubmissionsSnsTopicName}`;
+
+
+    /**
      * Custom KMS key for esb eform sqs connection.
      * Neccessary because the required permissions aren't included in the default key policy of the AWS managed KMS key for Amazon SQS, and you can't modify this policy.
      */
@@ -27,7 +35,7 @@ export class esbGenericServicesStack extends core.Stack {
     });
 
     kmsKey.addToResourcePolicy(new iam.PolicyStatement({
-      sid: 'Allow esb SQS Queue to receive messages from the eform-submissions SNS topic.',
+      sid: 'Allow SNS subscription to use this KMS key to publish messages from the eform-submissions SNSs topic.',
       effect: iam.Effect.ALLOW,
       principals: [
         new iam.ServicePrincipal('sns.amazonaws.com'),
@@ -39,8 +47,11 @@ export class esbGenericServicesStack extends core.Stack {
       ],
       resources: ['*'],
       conditions: {
-        StringEquals: {
-          'aws:PrincipalAccount': core.Stack.of(this).account,
+        ArnEquals: {
+          'aws:SourceArn': [
+            eformSubmissionsSnsTopicArn,
+            eformSubmissionsSnsTopicArn + ':*', // Individual subscriptions
+          ],
         },
       },
     }));
@@ -58,12 +69,6 @@ export class esbGenericServicesStack extends core.Stack {
       resources: ['*'],
     }));
 
-    /**
-     * Sns Topic from eform project: eform submissions sns topic.
-     */
-    const region = core.Stack.of(this).region;
-    const account = core.Stack.of(this).account;
-    const eformSubmissionsSnsTopicArn = `arn:aws:sns:${region}:${account}:${statics.eformSubmissionsSnsTopicName}`;
 
     /**
      * Sqs Dead-Letter Queue: receives 'failed' messages to the esb eform submissions queue.
@@ -110,6 +115,7 @@ export class esbGenericServicesStack extends core.Stack {
           ],
           resources: [
             eformSqs.queueArn,
+            eformSqsDlq.queueArn,
           ],
         }),
       ],
